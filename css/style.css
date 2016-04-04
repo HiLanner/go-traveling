@@ -69,6 +69,7 @@ a{color: #000;text-decoration: none;}
 	top:55%;
 	color: #fff;
 }
+.search nav{height: 45px;}
 .search input{font-size: 18px;color: #777;}
 .choose_btn li{
 	float: left;
@@ -91,6 +92,14 @@ a{color: #000;text-decoration: none;}
     -moz-box-shadow: 0 0 5px rgba(36,209,151, 1);
 }
 .search input[type="button"]{
+	color: #fff;
+	background: rgb(36,209,151);
+	width: 50px;
+	height: 35px;
+	border-radius: 4px;
+	border: none;
+}
+.search input[type="submit"]{
 	color: #fff;
 	background: rgb(36,209,151);
 	width: 50px;
@@ -207,7 +216,6 @@ footer p{
 	left: 65%;
 	top:30%;
 	color: #fff;	
-	border: 1px solid #000;
 }
 .hot h1{line-height: 80px;}
 .hot h1:hover{color: rgb(36,209,151)}
@@ -362,6 +370,14 @@ footer p{
 	height: 44px;
 	border: none;
 }
+.search-question input[type="submit"]{
+	color: #fff;
+	background: rgb(36,209,151);
+	width: 50px;
+	height: 35px;
+	border-radius: 4px;
+	border: none;
+}
 .hot-question h3{margin-top:10px;line-height: 30px;height: 30px;color: rgb(36,209,151);border-bottom: 1px solid #e7e7e7;border-top: 1px solid #e7e7e7;text-indent: 1em;}
 .hot-question ul li{width: 100%;text-indent: 1em;border-bottom: 1px dotted #dcdcdc;padding: 10px 0;}
 .hot-question ul li a{display:block;height:20px;line-height: 20px;color: #666;border-left: 2px solid rgb(36,209,151);}
@@ -411,7 +427,7 @@ footer p{
 .toregister{
 	min-height: 400px;
 	height: auto;}
-.user-table{width: 100%;left:80px;top:50px;position: relative;}
+.user-table{width: 100%;left:80px;top:30px;position: relative;}
 .user-table form p{line-height: 25px;font-size: 16px;color: #fff;height: 60px;}
 .user-table a{color:#4890c2; }
 .user-table a:hover{text-decoration: underline;}
@@ -422,13 +438,15 @@ footer p{
 .tips_error{font-size:12px;line-height: 15px;width: 200px;display: inline-block;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
 .checkbox_tip,.to_login{font-size:12px;}
 .user-table input[type='button']{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.user-table input[type='submit']{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
 .user-table input[type="text"]:focus,.user-table input[type="password"]:focus{
 	box-shadow: 0 0 5px rgba(36,209,151, 1);
     -webkit-box-shadow: 0 0 5px rgba(36,209,151, 1);
     -moz-box-shadow: 0 0 5px rgba(36,209,151, 1);
 }
+.user-table b a{color: rgba(36,209,151, 1);}
 .register-header .top-nav ul li a,.login-header .top-nav ul li a{color: #fff;}
-
-
+#error{height: 30px;width: 350px;text-align: center;}
+#error p{color: red;}
 
 

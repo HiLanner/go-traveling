@@ -11,14 +11,14 @@
 		    <img class="logo" src="../image/02.jpg"/>
 			<nav class="top-nav">
 				<ul>
-					<li><a href="index.html">首页</a></li>
-					<li><a href="destination.html">目的地</a></li>
-					<li><a href="tips.html">攻略</a></li>
-					<li><a href="shop.html">商城</a></li>
-					<li><a href="community.html">社区</a></li>
+					<li><a href="index.php">首页</a></li>
+		            <li><a href="destination.php">目的地</a></li>
+		            <li><a href="tips.php">攻略</a></li>
+		            <li><a href="shop.php">商城</a></li>
+		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="login"><a href="login.html">登录</a>|<a href="register.html">注册</a></span>
+			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
 		</div>
 	</header>
 	<div class="img-content">
