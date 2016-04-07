@@ -1,3 +1,5 @@
+input{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 200px;border: #ccc 1px solid;}
+
 .self-information{}
 .user-info{line-height: 60px;float: right;color: rgb(36,209,151);width: 200px;overflow: hidden;}
 .user-info img{width: 30px;height: 20px;vertical-align: center;}
@@ -42,6 +44,38 @@
 }
 .dt-pic li{display: inline-block;width: 23%;height: 80px;overflow:hidden;margin-left: 5px;}
 .dt-pic li img{width: 100%;height: 100%;}
+
+/*更改个人信息*/
+.self-center form,.write-date form{margin-top: 20px;}
+.change input{
+	position: absolute;
+	top: 0px;
+	opacity: 0;
+}
+.self-center form>p,.write-date form>p{width: 400px;margin: 10px auto;}
+.text_name{display:inline-block;width: 90px;}
+.changeInfo input{border: 1px solid rgb(36,209,151);}
+.changeInfo input[type='text'],.changeInfo input[type='password']{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 200px;border: #ccc 1px solid;}
+.change-tips{font-size:12px;display:none;line-height: 15px;width: 200px;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
+.tips_error{font-size:12px;line-height: 15px;width: 200px;display: inline-block;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
+.changeInfo input[type='button']{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.changeInfo input[type='submit'][type="submit"]{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.changeInfo input[type="text"]:focus,.changeInfo input[type="password"]:focus{
+	box-shadow: 0 0 5px rgba(36,209,151, 1);
+    -webkit-box-shadow: 0 0 5px rgba(36,209,151, 1);
+    -moz-box-shadow: 0 0 5px rgba(36,209,151, 1);
+}
+.changeInfo label{display:inline-block;width: 100px;text-align: right;}
+/*写游记*/
+.write-date textarea{border: 1px solid rgb(36,209,151);border-radius: 8px;border: #ccc 1px solid;}
+.write-date input[type="submit"]{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.title-error{font-size:12px;line-height: 15px;width: 200px;display: none;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
+
+
+
+
+
+
 
 
 

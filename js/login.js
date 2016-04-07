@@ -158,4 +158,66 @@ function changePosition(){
   var oldTag = oldNode.getElementsByTagName("form")[0];
   oldNode.insertBefore(newNode,oldTag);
 }
-$(document).ready(checkRegister(),checkLogin(),changePosition());
+function changeInformation(){
+  var true_email = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+  var true_phoneNum = /^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/;
+  var _email = $('.text-name').eq(0);
+  var _pwd = $('.text-name').eq(1);
+  $(".text-name").each(function(index){
+     $(this).focus(function(){
+            $(this).next('span').css("display","inline");
+        });
+     $(this).blur(function(){
+                if($(this).val().length==0){
+                     $(this).next('span').removeClass("tips_error");
+                     $(this).next('span').addClass("tips_error");
+                     $(this).next('span').text("不能为空");
+                }else{
+                    switch(index){
+                        case 0:
+                        if(!(true_phoneNum.test(email.val())||true_email.test(email.val()))){
+                           $(this).next('span').removeClass("tips");
+                           $(this).next('span').addClass("tips_error");
+                           $(this).next('span').text("格式有误");
+                        }else{
+                            $(this).next('span').removeClass("tips_error");
+                            $(this).next('span').addClass("tips");
+                            $(this).next('span').text("格式正确");
+                           }
+                        break; 
+                        case 1:
+                        if(pwd.val().length<6||pwd.val().length>16){
+                           $(this).next('span').removeClass("tips");
+                           $(this).next('span').addClass("tips_error");
+                           $(this).next('span').text("请输入正确长度的字符");}
+                           else{
+                            $(this).next('span').removeClass("tips_error");
+                            $(this).next('span').addClass("tips");
+                            $(this).next('span').text("格式正确");
+                           }
+                           break;
+                      
+                    }
+                
+             }
+      $(this).focus(function(){                
+                    switch(index){
+                        case 0:                        
+                           $(this).next('span').text("输入有效的手机号或电子邮件");
+                        break; 
+                        case 1:
+                           $(this).next('span').text("密码由6-16位有效的数字,字母标点符号下划线组成")
+                           break;
+                    }
+        });
+        });
+  })
+  $(".txt-title").focus(function(){
+    $(this).next("span").css("display","inline-block");
+  })
+  $(".txt-title").blur(function(){
+    if($(this).text().length<5)
+    $(this).next("span").text("标题字数不得少五个字符");
+  })
+}
+$(document).ready(changeInformation(),checkRegister(),checkLogin(),changePosition());
