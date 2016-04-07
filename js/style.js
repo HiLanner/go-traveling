@@ -80,7 +80,18 @@ function hotRoadLine(){
 		});
 	});
 }
+function chooseSort(){
+	var dtNav = $('.dt-nav ul li');
+	var content = $('.self-content');
+	$(content).eq(0).show('slow').siblings('.self-content').hide('slow');
+	$(dtNav).each(function(index){
+		$(this).click(function(){
+            $(content).eq(index).show('slow').siblings('.self-content').hide('slow');
+		});
+	})
+}
 $(document).ready(function(){
+	chooseSort();
 	hotRoadLine();
 	animateImg();
 	toggleTab();
