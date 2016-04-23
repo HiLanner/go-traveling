@@ -1,3 +1,7 @@
+<?php
+   error_reporting(0);
+   session_start();
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -19,28 +23,39 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="person.html">Lanner</a></span>
+			<?php
+			  if(!isset($_SESSION['username'])){
+			  	var_dump($_SESSION['username']) ;
+			?>
+			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+			<?php
+		}else{
+			?>
+			<span class="user-info"><img src="../image/02.jpg">|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+			<?php
+		}
+		?>
 		</div>
 	</header>	
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
 	<div class="container self-center">
-		<form class="changeInfo">
+		<form class="changeInfo" action="upload.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
        	 <div class="self-basic-top">
 			<div class="head-photo">
 	   	 		<img src="../image/02.jpg" />
 	       	 	<div class = "change">
 	       	 		<p>上传</p>
-	       	 		<input type="file" name="upload-image"/>
+	       	 		<input type="file" name="file"/>
 	       	 	</div>
 	       	</div>
 	       	<p><i class="fa fa-map">Lanner</i>&nbsp;&nbsp;<b>Lv20</b></p>
 	     </div>
 	     <p><label>姓名：</label><b>lanner</b></p>
-         <p><label>手机/邮箱：</label><input class="text-name" type="text"/><span class="change-tips">输入有效的手机号或电子邮件</span></p>
-         <p><label>原密码：</label><input class="text-name" type="password"/><span class="change-tips">输入原密码</span></p>
-         <p><label>新密码：</label><input class="text-name" type="password"/><span class="change-tips">输入新密码</span></p>
+         <p><label class="input_name">手机/邮箱：</label><input class="text-name" name="email" type="text"/><span class="change-tips">输入有效的手机号或电子邮件</span></p>
+         <p><label class="input_name">原密码：</label><input class="text-name" name="pwd" type="password"/><span class="change-tips">输入原密码</span></p>
+         <p><label class="input_name">新密码：</label><input class="text-name" type="password"/><span class="change-tips">输入新密码</span></p>
          <p><label></label><input type="submit" value="提交"/></p>
 		</form>
 	</div>	

@@ -3,25 +3,20 @@
     error_reporting(0);
     if(isset($_POST["submit"])){
       $user = $_POST[user_name];
-      $userSql = "select username from `user`";
+      $userSql = "select username from `user` where username ='$user'";
       $userQuery = mysql_query($userSql);
       $userRow = mysql_fetch_array($userQuery);
-      while($userRow = mysql_fetch_array($userQuery)){
-        if ($userRow[username] == $user) {
-          # code...
-          ?>
+      if($userRow){
+        ?>
           <div id="error">
             <p>该用户名已存在,请重新输入！</p>
           </div>
           <?php
-          break;
         }else{
-           $pwd = md5($_POST[pwd]);
+          $pwd = md5($_POST[pwd]);
       $sql = "insert into user (username,phonenum,email,password,logintime) values ('$_POST[user_name]','$_POST[email]','$_POST[email]','$pwd',now())";
       mysql_query($sql);
         }
-      }
-     
       mysql_close();
     }else{
     }

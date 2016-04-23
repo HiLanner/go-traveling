@@ -1,3 +1,17 @@
+<?php
+    include("conn.php");  
+    session_start(); 
+    error_reporting(0);
+    $localname = $_SESSION['username'];
+    $inforSql = "select * from user where username = '$localname'";
+    $inforSqlQuery = mysql_query($inforSql);
+    $resultArray = mysql_fetch_array($inforSqlQuery);
+    //var_dump($resultArray);  
+    //echo $resultArray[headimg];
+    $url ='<img src="../upload/'.$resultArray[headimg].'" />';
+    //echo $url;
+?>
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -19,7 +33,18 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="person.html">Lanner</a></span>
+			<?php
+			  if(!isset($_SESSION['username'])){
+			  	var_dump($_SESSION['username']) ;
+			?>
+			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+			<?php
+		}else{
+			?>
+			<span class="user-info"><img src="../image/02.jpg">|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+			<?php
+		}
+		?>
 		</div>
 	</header>	
     <div class="img-show bgImg">
@@ -29,15 +54,15 @@
        <div class="self self-basic">
        	 <div class="self-basic-top">
        	 	<div class="head-photo">
-       	 		<img src="../image/02.jpg" />
+       	 		<?php echo $url; ?>
 	       	 	<div class = "change">
-	       	 		<p>修改</p>
+	       	 		<p><a href="changeInformation.php">修改</a></p>
 	       	 	</div>
        	 	</div>
-       	 	<p><i class="fa fa-map">Lanner</i>&nbsp;&nbsp;<b>Lv20</b></p>
+       	 	<p><i class="fa fa-map"><?php echo $resultArray[username]; ?></i>&nbsp;&nbsp;<b>Lv20</b></p>
        	 </div>
 	     <div class="sort self-hot-date">
-	     	<h3><i class="fa fa-map fa-2x"></i>我的热门游记</h3>
+	     	<h3><i class="fa fa-map"></i>我的热门游记</h3>
             <div class="left-img">
             	<img src="../image/02.jpg"/>
             </div>

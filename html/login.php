@@ -1,42 +1,45 @@
 <?php
-    include("conn.php");
-    error_reporting(0);   
-    if(isset($_POST["submit"])){
-    	$email = $_POST[email];
-    	$sql = "select * from `user` where email = $email";
-    	$query = mysql_query($sql);
-    	$row = mysql_fetch_array($query);
-    	if (!$row) {
-    		//echo "登录失败";
-    		?>
-    		<div id="error">
-    			<p>登陆失败，请检查账号密码</p>
-    		</div>
-    	<?php
-    	}else{
-    		$i = 0;
-    	while ($row = mysql_fetch_array($query)) {
-    		if ($row[password]==$_POST[pwd]) {
-    		?>
-	    		<div id="error">
-	    			<p>登陆成功</p>
-	    		</div>
-    		<?php
-    			$i++;
-    			echo "登陆成功";
-    			break;
-    		}
-    	}
-    	if ($i==0) {
-    		?>
-    		<div id="error">
-    			<p>登陆失败，请检查账号密码</p>
-    		</div>
-    		<?php
-    	}
-    }
-      
-  }   
+    session_start();
+    include("conn.php"); 
+    error_reporting(0);
+
+     if(isset($_POST["submit"])){
+      $email = $_POST[email];
+      $password = md5($_POST[pwd]);
+      $userSql = "select password,username from user where email ='$email'";
+  
+      $userQuery = mysql_query($userSql);      
+
+      $userRow = mysql_fetch_array($userQuery);
+      //var_dump($userRow);
+      //exit();
+      if (!$userRow) {
+          ?>
+            <div id="error">
+                <p>登陆失败，请检查账号密码</p>
+            </div>
+        <?php
+      }else{
+          if ($userRow[0]!= $password) {
+              ?>
+                <div id="error">
+                    <p>登陆失败，请检查账号密码</p>
+                </div>
+            <?php
+          }else{
+            ?>
+                <div id="error">
+                    <p>登陆成功！</p>
+                </div>
+            <?php
+            $_SESSION['username']=$userRow[1];
+            $home_url = "person.php";
+            //echo $_SESSION['username'];
+           // exit();
+            header('location:'.$home_url);
+          }
+      }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
