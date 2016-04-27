@@ -16,10 +16,12 @@
           $pwd = md5($_POST[pwd]);
       $sql = "insert into user (username,phonenum,email,password,logintime) values ('$_POST[user_name]','$_POST[email]','$_POST[email]','$pwd',now())";
       mysql_query($sql);
+      
         }
       mysql_close();
     }else{
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en-US">

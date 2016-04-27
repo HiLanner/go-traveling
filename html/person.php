@@ -8,8 +8,10 @@
     $resultArray = mysql_fetch_array($inforSqlQuery);
     //var_dump($resultArray);  
     //echo $resultArray[headimg];
+    $localimg = $resultArray[headimg];
+    $_SESSION['img'] = $localimg;
     $url ='<img src="../upload/'.$resultArray[headimg].'" />';
-    //echo $url;
+    $_SESSION['url'] = $url;
 ?>
 
 <!DOCTYPE html>
@@ -100,13 +102,17 @@
        	  	</ul>
        	  </nav>
        	  <div class="self-content dt-date">
-       	  	<h3>我的游记</h3>
+       	  	<h3>我的游记<i class="fa fa-pencil" aria-hidden="true"><a href="Date.php">写游记</a></i></h3>
        	  	<div class="sort dt-content">
 	       	  	<div class="left-img">
 	            	<img src="../image/02.jpg"/>
 	            </div>
 	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
+	            	<h3><a href="date_Detail.html">这是标题</a><time>2016-03-04</time></h3>
+	            	<p>特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,
+	            		特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，
+	            		特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
+	            	</p>
 	            </div>
             </div>
             <div class="sort dt-content">

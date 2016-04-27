@@ -19,18 +19,23 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="person.html">Lanner</a></span>
+			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
 		</div>
 	</header>	
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
-	<div class="container write-date">
-       	<form>
-           <p><label>标题：</label><input type="text" class="txt-title" name="txt-title"/><span class="title-error">标题不得少于5个字</span></p>
-           <p><label></label><textarea cols="80" rows="30"></textarea></p>
-           <p><label></label><input type="submit" value="提交"/></p>
+	<div class="container roadline">
+       	<form action="person.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+           <p><label>地点：</label>
+           	<select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+            <select id="s_county" name="s_county"></select>
+           <p><label>路线：</label><textarea></textarea>
+           <p><label></label><input type="submit" value="上传"/></p>
         </form>
+        <script language="javascript" src="../js/areaa.js"></script>
+        <script type="text/javascript">_init_area();</script>
 	</div>	
 	<footer>
 		<p>@copyright by工程项目小分队</p>

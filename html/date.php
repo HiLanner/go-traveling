@@ -1,5 +1,5 @@
-<?php
-   error_reporting(0);
+<?php 
+   include("conn.php");
    session_start();
 ?>
 <!DOCTYPE html>
@@ -40,24 +40,12 @@
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
-	<div class="container self-center">
-		<form class="changeInfo" action="upload.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
-       	 <div class="self-basic-top">
-			<div class="head-photo">
-	   	 		<?php echo($_SESSION['url']); ?>
-	       	 	<div class = "change">
-	       	 		<p>上传</p>
-	       	 		<input type="file" name="file"/>
-	       	 	</div>
-	       	</div>
-	       	<p><i class="fa fa-map"><?php echo $_SESSION['username']; ?></i>&nbsp;&nbsp;<b>Lv20</b></p>
-	     </div>
-	     <p><label>姓名：</label><b><?php echo $_SESSION['username']; ?></b></p>
-         <p><label class="input_name">手机/邮箱：</label><input class="text-name" name="email" type="text"/><span class="change-tips">输入有效的手机号或电子邮件</span></p>
-         <p><label class="input_name">原密码：</label><input class="text-name" name="pwd" type="password"/><span class="change-tips">输入原密码</span></p>
-         <p><label class="input_name">新密码：</label><input class="text-name" type="password"/><span class="change-tips">输入新密码</span></p>
-         <p><label></label><input type="submit" value="提交"/></p>
-		</form>
+	<div class="container write-date">
+       	<form action="person.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+           <p><label>标题：</label><input type="text" class="txt-title" name="txt-title"/><span class="title-error">标题不得少于5个字</span></p>
+           <p><label></label><textarea cols="80" rows="30"></textarea></p>
+           <p><label></label><input type="submit" value="提交"/></p>
+        </form>
 	</div>	
 	<footer>
 		<p>@copyright by工程项目小分队</p>
