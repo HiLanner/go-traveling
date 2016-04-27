@@ -448,5 +448,23 @@ footer p{
 .register-header .top-nav ul li a,.login-header .top-nav ul li a{color: #fff;}
 #error{height: 30px;width: 350px;text-align: center;}
 #error p{color: red;}
+/*预订酒店*/
+.items-intro b{color: rgb(36,209,151);}
+.items-intro a{display: inline-block;width: 40px;height: 20px;background: rgb(36,209,151);color: #fff;text-align: center;border-radius: 4px;}
+.buy-search{margin: 20px auto;}
+/*路线*/
+.roadline-ul{margin: 20px auto;}
+.roadline-ul-li{display: block;margin-top: 5px;}
+.city-img,.day-detail{display: inline-block;min-height: 150px;vertical-align: top;}
+.city-img{width: 20%;}
+.city-img img{width: 100%;height: 100%;}
+.day-detail{width: 75%;background: #e7e7e7;margin-left: 15px;padding: 10px;color: #777;}
+
+
+
+
+
+
+
 
 
