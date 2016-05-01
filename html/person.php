@@ -12,6 +12,18 @@
     $_SESSION['img'] = $localimg;
     $url ='<img src="../upload/'.$resultArray[headimg].'" />';
     $_SESSION['url'] = $url;
+    $date = "select * from diary where username = '$localname'";
+    $roadline = "select * from roadline where username = '$localname'";
+    $tip = "select * from tip where username = '$localname'";
+    $question = "select * from question where username = '$localname'";
+    $dateSqlQuery = mysql_query($date) or die(mysql_error());
+    $roadlineSqlQuery = mysql_query($roadline) or die(mysql_error());
+    $tipSqlQuery = mysql_query($tip) or die(mysql_error());
+    $questionSqlQuery = mysql_query($question) or die(mysql_error());
+    $dateList = mysql_fetch_array($dateSqlQuery);
+    $roadlineList = mysql_fetch_array($roadlineSqlQuery);
+    $tipList = mysql_fetch_array($tipSqlQuery);
+    $questionList = mysql_fetch_array($questionSqlQuery);
 ?>
 
 <!DOCTYPE html>
@@ -103,42 +115,22 @@
        	  </nav>
        	  <div class="self-content dt-date">
        	  	<h3>我的游记<i class="fa fa-pencil" aria-hidden="true"><a href="Date.php">写游记</a></i></h3>
+       	  	<?php
+       	  	   while($dateList = mysql_fetch_array($dateSqlQuery)){
+       	  	?>
        	  	<div class="sort dt-content">
 	       	  	<div class="left-img">
 	            	<img src="../image/02.jpg"/>
 	            </div>
 	            <div class="text-deraction">
-	            	<h3><a href="date_Detail.html">这是标题</a><time>2016-03-04</time></h3>
-	            	<p>特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,
-	            		特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，
-	            		特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            	</p>
+	            	<h3><a href="myDate.php?id=<?php echo $dateList[id]; ?>"><?php echo ($dateList[title]);?></a><time><?php echo ($dateList[time]);?></time></h3>
+	            	<?php echo $dateList[content]; ?>
 	            </div>
             </div>
-            <div class="sort dt-content">
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-            </div>
-            <div class="sort dt-content">
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-            </div>
-            <div class="sort dt-content">
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-            </div>
+            <?php 
+              } 
+            ?>
+            
             <div class="digg"> 
 		        <span class="disabled">&lt; </span>
 		        <span class="current">1</span>
@@ -156,39 +148,23 @@
              </div> 
        	  </div>
           <div class="self-content dt-tips">
-       	    <h3>我的攻略</h3>
+       	    <h3>我的攻略<i class="fa fa-pencil" aria-hidden="true"><a href="upload_roadline.php">写路线</a></i><i class="fa fa-pencil" aria-hidden="true"><a href="upload_tip.php">写攻略</a></i></h3>
+       	  	<?php
+       	  	   while($tipList = mysql_fetch_array($tipSqlQuery)){
+       	  	?>
        	  	<div class="sort dt-content">
 	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
+	            	<h3><a href="#"><?php echo $tipList[interst]; ?></a><address><?php echo ($tipList[city])?></address><time><?php echo ($tipList[time])?></time></h3>
+	            	<?php echo ($tipList[tipcontent])?>
 	            </div>
 	       	  	<div class="left-img">
 	            	<img src="../image/02.jpg"/>
 	            </div>
             </div>
-            <div class="sort dt-content">
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-            </div>
-            <div class="sort dt-content">
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-            </div>
-            <div class="sort dt-content">
-	            <div class="text-deraction">
-	            	特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方，特别好的地方,特别好的地方，特别好的地方，特别好的地方
-	            </div>
-	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
-	            </div>
-            </div>
+            <?php 
+              } 
+            ?>
+            
             <div class="digg"> 
 		        <span class="disabled">&lt; </span>
 		        <span class="current">1</span>
@@ -207,23 +183,15 @@
        	  </div>
        	  <div class="self-content dt-discuss">
        	  	<div class="set-discuss">
-       	  		<h3>我的讨论</h3>
-	       	  	<p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	       	  	<p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	            <p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	       	  	<p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	            <p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	       	  	<p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	            <p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
-	       	  	<p class="my-question">Q:杭州哪里好玩？</p>
-	            <p class="my-answer">A:好吃的特别多</p>
+       	  		<h3>我的讨论<i class="fa fa-pencil" aria-hidden="true"><a href="askQuestion.php">写问题</a></i></h3>
+	       	  	<?php
+       	  	    while($questionList = mysql_fetch_array($questionSqlQuery)){
+       	  	    ?>
+	       	  	<p class="my-question">Q:<?php echo($questionList[question]) ?><time><?php echo($questionList[time]) ?></time></p>
+	            <p class="my-answer"><a href="#">A:</a>好吃的特别多</p>	       	  	
+	            <?php
+                  }
+	            ?>
        	  	</div>
        	  	<div class="digg"> 
 		        <span class="disabled">&lt; </span>
@@ -242,7 +210,7 @@
              </div> 
        	  </div>
        	  <div class="self-content dt-pic">
-       	  	<h3>我的相册</h3>
+       	  	<h3>我的相册<i class="fa fa-pencil" aria-hidden="true"><a href="upload_pic.php">上传图片</a></i></h3>
        	  	<ul>
               <li><img src="../image/02.jpg"/></li>
               <li><img src="../image/02.jpg"/></li>

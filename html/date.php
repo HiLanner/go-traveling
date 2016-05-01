@@ -1,6 +1,22 @@
 <?php 
    include("conn.php");
+   error_reporting(0); 
    session_start();
+   // if(isset($_POST["submit"])){
+   	  $username = $_SESSION['username'];
+
+      $title = $_POST['txt-title'];
+      $content = $_POST['content'];
+
+      $textSql = "insert into diary(username,title,content,time) values ('$username','$title','$content',now())";
+      echo($textSql);
+      $textQuery = mysql_query($textSql) or die(mysql_error());
+      //$userRow = mysql_fetch_array($textQuery);
+      //var_dump($userRow);
+      mysql_close();
+    // }else{
+    // 	echo("aaa");
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -41,9 +57,9 @@
 		<img src="../image/info01.jpeg"/>
 	</div>
 	<div class="container write-date">
-       	<form action="person.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+       	<form action="date.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label>标题：</label><input type="text" class="txt-title" name="txt-title"/><span class="title-error">标题不得少于5个字</span></p>
-           <p><label></label><textarea cols="80" rows="30"></textarea></p>
+           <p><label></label><textarea cols="80" rows="30" name="content"></textarea><span class="title-error">不得为空</span></p>
            <p><label></label><input type="submit" value="提交"/></p>
         </form>
 	</div>	
@@ -52,7 +68,7 @@
 		<p>2016-03-25</p>
 		<p>河南省开封市河南大学计算机与信息工程学院</p>
 	</footer>
-	<script type="text/javascript" src="../js/jQuery.js"></script>
-	<script type="text/javascript" src="../js/login.js"></script>
+	<!--<script type="text/javascript" src="../js/jQuery.js"></script>
+	// <script type="text/javascript" src="../js/login.js"></script>-->
 </body>
 </html>

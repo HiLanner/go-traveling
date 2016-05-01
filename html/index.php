@@ -1,9 +1,49 @@
+<?php
+    include("conn.php"); 
+    include("page.php"); 
+    session_start(); 
+    error_reporting(0);
+    $localname = $_SESSION['username'];
+    $inforSql = "select * from user where username = '$localname'";
+    $inforSqlQuery = mysql_query($inforSql);
+    $resultArray = mysql_fetch_array($inforSqlQuery);
+    //var_dump($resultArray);  
+    //echo $resultArray[headimg];
+    $localimg = $resultArray[headimg];
+    $_SESSION['img'] = $localimg;
+    $url ='<img src="../upload/'.$resultArray[headimg].'" />';
+    $_SESSION['url'] = $url;
+    $date = "select * from diary";
+    $roadline = "select * from roadline";
+    $tip = "select * from tip";
+    $question = "select * from question where username = '$localname'";
+    $dateSqlQuery = mysql_query($date) or die(mysql_error());
+    $roadlineSqlQuery = mysql_query($roadline) or die(mysql_error());
+    $tipSqlQuery = mysql_query($tip) or die(mysql_error());
+    $questionSqlQuery = mysql_query($question) or die(mysql_error());
+    $dateList = mysql_fetch_array($dateSqlQuery);
+    $roadlineList = mysql_fetch_array($roadlineSqlQuery);
+    $tipList = mysql_fetch_array($tipSqlQuery);
+    $questionList = mysql_fetch_array($questionSqlQuery);
+
+  
+    
+    $page = $_GET["page"];
+    $page_size = 4;
+    $rows = mysql_num_rows($dateSqlQuery);
+    //echo $rows;
+    Page($rows,$page_size);
+	$sql = "select * from diary limit $select_from $select_limit";
+    $rst = mysql_query($sql) or die(mysql_error());
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 </head>
 <body>
 	<header class="header">
@@ -18,8 +58,19 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
-		</div>
+			<?php
+			  if(!isset($_SESSION['username'])){
+			  	var_dump($_SESSION['username']) ;
+			?>
+			<span class="user-info"><a href="login.php">登录</a></span>
+			<?php
+		}else{
+			?>
+			<span class="user-info"><img src="../image/<?php echo($localimg) ?>">|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+			<?php
+		}
+		?>
+	</div>
 	</header>
 	<div class="img-content">
 		<div class="img-show">
@@ -155,66 +206,31 @@
 			<div class="three-parts">
 				<div class="date-intro">
 					<div class="date">
+						<?php
+       	  	              while($dateList = mysql_fetch_array($rst)){
+       	  	              	$dateItem = "select * from user where username = '$dateList[username]'";
+       	  	              	$dateItemQuery = mysql_Query($dateItem);
+       	  	              	$dateItemResult = mysql_fetch_array($dateItemQuery);
+       	  	              	$headphoto = $dateItemResult[headimg];
+       	  	            ?>
 					    <div class="date-item">
 							<div class="date-img"><img src="../image/con01.png"/></div>
 							<div class="date-tit">
-								<h2>【枫叶季】在京都最美的时光，遇见 </h2>
-								<p>夏天的时候，来过关西。到处绿油油一片，看着满心欢喜。
-								<p>几个月后。
-								<p>绿油油的叶子变黄变红，落了一地，露出了树枝的姿态，树干的纹路。</p>
-								<p>在京都最美的时光，遇见了最美的枫景。</p>
-								<p>京都的初冬原来是如此醉人的。</p>
-								<p>虽然有七天时间，但也觉得走得匆忙，舍不得离开。</p>
+								<h2><a href="dateDetail.php?id=<?php echo $dateList[id]; ?>"><?php echo $dateList[title]; ?></a></h2>
+								<?php echo($dateList[content]); ?>
 								<div class="writer">
 									<ul>
-                                        <li><img src="../image/icon01.png"/><span>地点</span></li>
-                                        <li><img src="../image/headimg.jpg"/><span>作者</span></li>
-                                        <li><img src="../image/icon05.png"/><span>评论(999+)</span></li>
-                                        <li><img src="../image/icon07.png"/><span>赞(999+)</span></li>
+                                        <li><img src="../image/icon01.png"/><span><?php echo($dateList[place]); ?></span></li>
+                                        <li><img src="../image/<?php echo($headphoto); ?>"/><span><?php echo($dateList[username]); ?></span></li>
+                                        <li><img src="../image/icon05.png"/><span>评论(<?php echo($dateList[commitcont]); ?>+)</span></li>
+                                        <li><img src="../image/icon07.png"/><span>赞(<?php echo($dateList[zancommit]); ?>)</span></li>
 									</ul>
 								</div>
 							</div>
 						</div>
-						<div class="date-item">
-							<div class="date-img"><img src="../image/con01.png"/></div>
-							<div class="date-tit">
-								<h2>【枫叶季】在京都最美的时光，遇见 </h2>
-								<p>夏天的时候，来过关西。到处绿油油一片，看着满心欢喜。
-								<p>几个月后。
-								<p>绿油油的叶子变黄变红，落了一地，露出了树枝的姿态，树干的纹路。</p>
-								<p>在京都最美的时光，遇见了最美的枫景。</p>
-								<p>京都的初冬原来是如此醉人的。</p>
-								<p>虽然有七天时间，但也觉得走得匆忙，舍不得离开。</p>
-							    <div class="writer">
-									<ul>
-                                        <li><img src="../image/icon01.png"/><span>地点</span></li>
-                                        <li><img src="../image/headimg.jpg"/><span>作者</span></li>
-                                        <li><img src="../image/icon05.png"/><span>评论(999+)</span></li>
-                                        <li><img src="../image/icon07.png"/><span>赞(999+)</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="date-item">
-							<div class="date-img"><img src="../image/con01.png"/></div>
-							<div class="date-tit">
-								<h2>【枫叶季】在京都最美的时光，遇见 </h2>
-								<p>夏天的时候，来过关西。到处绿油油一片，看着满心欢喜。
-								<p>几个月后。
-								<p>绿油油的叶子变黄变红，落了一地，露出了树枝的姿态，树干的纹路。</p>
-								<p>在京都最美的时光，遇见了最美的枫景。</p>
-								<p>京都的初冬原来是如此醉人的。</p>
-								<p>虽然有七天时间，但也觉得走得匆忙，舍不得离开。</p>
-							    <div class="writer">
-									<ul>
-                                        <li><img src="../image/icon01.png"/><span>地点</span></li>
-                                        <li><img src="../image/headimg.jpg"/><span>作者</span></li>
-                                        <li><img src="../image/icon05.png"/><span>评论(999+)</span></li>
-                                        <li><img src="../image/icon07.png"/><span>赞(999+)</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+						<?php
+                           }
+						?>
 					</div>
 					<div class="date">
 					    <div class="date-item">
@@ -342,20 +358,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="digg"> 
-		        <span class="disabled">&lt; </span>
-		        <span class="current">1</span>
-		        <a href="#?page=2">2</a>
-		        <a href="#?page=3">3</a>
-		        <a href="#?page=4">4</a>
-		        <a href="#?page=5">5</a>
-		        <a href="#?page=6">6</a>
-		        <a href="#?page=7">7</a>
-		        ...
-		        <a href="#?page=199">199</a>
-		        <a href="#?page=200">200</a>
-		        <a href="#?page=2"> 
-		        &gt; </a>
+			<div class="digg">
+		        <?php 
+                 echo $pagenav;
+		         ?>
              </div> 
 		</div>
 	</div>

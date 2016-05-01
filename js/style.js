@@ -58,7 +58,7 @@ function searchNav(){
 }
 function showDetail(){
 	var hotelDetailLi = $(".hotel-detail").children("li");
-	var goTop = hotelDetailLi.eq(0).position().top;
+	var goTop = hotelDetailLi.eq(0).position().top();
 	$(hotelDetailLi).mouseenter(function(){
 		$(this).animate({top:0},400);
 	})

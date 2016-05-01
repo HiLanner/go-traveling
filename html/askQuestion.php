@@ -1,3 +1,20 @@
+<?php
+   //error_reporting(0);
+   include("conn.php");
+   header('Content_Type:text/html;charset=utf-8'); 
+   session_start();
+   	  $username = $_SESSION['username'];
+      $question = $_POST['question'];
+       //echo $username;
+       //echo $question;
+      $questionSql = "insert into question (username,question,time) values ('$username','$question',now())";
+      $questionQuery = mysql_query($questionSql) or die(mysql_error()) ;
+      // if ($questionQuery) {
+      // $home_url = "person.php";
+      // header('location:'.$home_url);
+      // }
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -19,15 +36,26 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
+			<?php
+			  if(!isset($_SESSION['username'])){
+			  	var_dump($_SESSION['username']) ;
+			?>
 			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
-		</div>
+			<?php
+		}else{
+			?>
+			<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+			<?php
+		}
+		?>
+	</div>
 	</header>	
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
 	<div class="container ask-question">
-       	<form action="person.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
-           <p><label></label><input type="text"/></p>
+       	<form action="askQuestion.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+           <p><label></label><input type="text" name="question"/></p>
            <p><label></label><input type="submit" value="发布"/></p>
         </form>
 	</div>	

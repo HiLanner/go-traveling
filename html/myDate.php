@@ -1,3 +1,19 @@
+<?php
+   include("conn.php");
+   header('Content_Type:text/html;charset=utf-8'); 
+   error_reporting(0);
+   session_start();
+   $localname = $_SESSION['username'];
+   $id=$_GET['id'];
+   $this_article = "select * from diary where id = '$id'";
+   $this_articleQuery = mysql_query($this_article)or die(mysql_errno());
+   $this_articleQueryList  = mysql_fetch_array($this_articleQuery);
+   //var_dump(expression);
+   $article = "select * from diary where username = '$localname'";
+   $articleSql = mysql_query($article) or die(mysql_error());
+   $articleSqlList  = mysql_fetch_array($articleSql);
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -25,46 +41,24 @@
 	</header>
 	<div class="container dateDetail">
 		<div class="date_style date_list">
-			<ul>
+			<ul class="date_list_ul">
+				<?php
+                  while ($articleSqlList  = mysql_fetch_array($articleSql)) {                  
+				?>
 				<li>
                     <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
+                       <li><a href="#"><?php echo $articleSqlList[title]; ?></a><time><?php echo $articleSqlList[time]; ?></time></li>
                     </ul>					
 				</li>
-				<li>
-                    <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
-                    </ul>					
-				</li>
-				<li>
-                    <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
-                    </ul>					
-				</li>
-				<li>
-                    <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
-                    </ul>					
-				</li>
-				<li>
-                    <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
-                    </ul>					
-				</li>
-				<li>
-                    <ul>
-                       <li><a href="#">文章标题</a><time>2016-03-23</time></li>
-                    </ul>					
-				</li>
+				<?php
+				  }
+				?>
 			</ul>
 		</div>
 		<div class="date_style date_con">
 			<article class="article">
-				<h3>文章标题<time>2016-03-23</time></h3>
-				<p>这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容</p>
-				<p>这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容</p>
-				<p>这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容这是文章内容</p>
-				<p>这是文章内容这是文章内容这是文章内容这是文章内容</p>
+				<h3><?php echo $this_articleQueryList[title]; ?><time><?php echo $this_articleQueryList[time]; ?></time></h3>
+				<?php echo $this_articleQueryList[content]; ?>
 			</article>
 			<nav class="other_commit">
 				<li><img src="../image/headimg.jpg"><b>啦啦啦</b>：<span>评论了什么评论了什么</span><time>2016-03-23</time></li>
