@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66f474c3-d2bb-4b27-9b0b-73981a01fd87" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/html/ablum.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/ablum.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/allTips.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/askQuestion.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/bookcar.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/dateDetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/hotel.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/myQandA.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/myRoadline.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/roadline.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/specialty.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/html/upload_pic.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/self.css" afterPath="$PROJECT_DIR$/css/self.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/date.php" afterPath="$PROJECT_DIR$/html/date.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/index.php" afterPath="$PROJECT_DIR$/html/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/myDate.php" afterPath="$PROJECT_DIR$/html/myDate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/person.php" afterPath="$PROJECT_DIR$/html/person.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/style.js" afterPath="$PROJECT_DIR$/js/style.js" />
-    </list>
+    <list default="true" id="66f474c3-d2bb-4b27-9b0b-73981a01fd87" name="Default" comment="" />
     <ignored path="travel.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -160,12 +140,12 @@
       <updated>1462015555437</updated>
       <workItem from="1462015558413" duration="163000" />
       <workItem from="1462015750224" duration="531000" />
-      <workItem from="1462066649657" duration="730000" />
+      <workItem from="1462066649657" duration="760000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1424000" />
+    <option name="totallyTimeSpent" value="1454000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
