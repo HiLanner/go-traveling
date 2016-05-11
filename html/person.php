@@ -4,10 +4,8 @@
     error_reporting(0);
     $localname = $_SESSION['username'];
     $inforSql = "select * from user where username = '$localname'";
-    $inforSqlQuery = mysql_query($inforSql);
-    $resultArray = mysql_fetch_array($inforSqlQuery);
-    //var_dump($resultArray);  
-    //echo $resultArray[headimg];
+    $inforSqlQuery = mysqli_query($conn,$inforSql);
+    $resultArray = mysqli_fetch_array($inforSqlQuery);
     $localimg = $resultArray[headimg];
     $_SESSION['img'] = $localimg;
     $url ='<img src="../upload/'.$resultArray[headimg].'" />';
@@ -16,14 +14,24 @@
     $roadline = "select * from roadline where username = '$localname'";
     $tip = "select * from tip where username = '$localname'";
     $question = "select * from question where username = '$localname'";
-    $dateSqlQuery = mysql_query($date) or die(mysql_error());
-    $roadlineSqlQuery = mysql_query($roadline) or die(mysql_error());
-    $tipSqlQuery = mysql_query($tip) or die(mysql_error());
-    $questionSqlQuery = mysql_query($question) or die(mysql_error());
-    $dateList = mysql_fetch_array($dateSqlQuery);
-    $roadlineList = mysql_fetch_array($roadlineSqlQuery);
-    $tipList = mysql_fetch_array($tipSqlQuery);
-    $questionList = mysql_fetch_array($questionSqlQuery);
+    $dateSqlQuery = mysqli_query($conn,$date) or die(mysqli_error($conn));
+    $roadlineSqlQuery = mysqli_query($conn,$roadline) or die(mysqli_error($conn));
+    $tipSqlQuery = mysqli_query($conn,$tip) or die(mysqli_error($conn));
+    $questionSqlQuery = mysqli_query($conn,$question) or die(mysqli_error($conn));
+    $dateList = mysqli_fetch_array($dateSqlQuery);
+    $roadlineList = mysqli_fetch_array($roadlineSqlQuery);
+    $tipList = mysqli_fetch_array($tipSqlQuery);
+    $questionList = mysqli_fetch_array($questionSqlQuery);
+
+//   获取图片路径
+    $picSrc = "select * from picture where username = '$localname'";
+    $picSqlQuery = mysqli_query($conn,$picSrc) or die(mysqli_error($conn));;
+
+
+    while ($resultPic = mysqli_fetch_array($picSqlQuery)){
+		preg_match_all("/<img([^>]*)\s*src=('|\")([^'\"]+)('|\")/", $resultPic[pic],$matches);
+		$allmatches[]=$matches[0];
+	}
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +39,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">	
-	<link rel="stylesheet" type="text/css" href="../css/self.css">	
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 	<link rel="stylesheet" type="text/css" href="../css/font-awesome-4.5.0/css/font-awesome.css">
 <body>
 	<header class="header">
@@ -48,19 +56,19 @@
 				</ul>
 			</nav>
 			<?php
-			  if(!isset($_SESSION['username'])){
-			  	var_dump($_SESSION['username']) ;
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
 			?>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
-			<?php
-		}else{
-			?>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
-			<?php
-		}
-		?>
 		</div>
-	</header>	
+	</header>
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
@@ -116,7 +124,7 @@
        	  <div class="self-content dt-date">
        	  	<h3>我的游记<i class="fa fa-pencil" aria-hidden="true"><a href="Date.php">写游记</a></i></h3>
        	  	<?php
-       	  	   while($dateList = mysql_fetch_array($dateSqlQuery)){
+       	  	   while($dateList = mysqli_fetch_array($dateSqlQuery)){
        	  	?>
        	  	<div class="sort dt-content">
 	       	  	<div class="left-img">
@@ -150,7 +158,7 @@
           <div class="self-content dt-tips">
        	    <h3>我的攻略<i class="fa fa-pencil" aria-hidden="true"><a href="upload_roadline.php">写路线</a></i><i class="fa fa-pencil" aria-hidden="true"><a href="upload_tip.php">写攻略</a></i></h3>
        	  	<?php
-       	  	   while($tipList = mysql_fetch_array($tipSqlQuery)){
+       	  	   while($tipList = mysqli_fetch_array($tipSqlQuery)){
        	  	?>
        	  	<div class="sort dt-content">
 	            <div class="text-deraction">
@@ -185,7 +193,7 @@
        	  	<div class="set-discuss">
        	  		<h3>我的讨论<i class="fa fa-pencil" aria-hidden="true"><a href="askQuestion.php">写问题</a></i></h3>
 	       	  	<?php
-       	  	    while($questionList = mysql_fetch_array($questionSqlQuery)){
+       	  	    while($questionList = mysqli_fetch_array($questionSqlQuery)){
        	  	    ?>
 	       	  	<p class="my-question">Q:<?php echo($questionList[question]) ?><time><?php echo($questionList[time]) ?></time></p>
 	            <p class="my-answer"><a href="#">A:</a>好吃的特别多</p>	       	  	
@@ -212,14 +220,13 @@
        	  <div class="self-content dt-pic">
        	  	<h3>我的相册<i class="fa fa-pencil" aria-hidden="true"><a href="upload_pic.php">上传图片</a></i></h3>
        	  	<ul>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
-              <li><img src="../image/02.jpg"/></li>
+				<?php
+				  foreach($allmatches as $arr){
+					  foreach($arr as $key){
+						  ?>
+						  <li><?php echo $key;?></li>
+
+				<?php }} ?>
        	  	</ul>
        	  	<div class="digg"> 
 		        <span class="disabled">&lt; </span>

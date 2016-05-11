@@ -6,12 +6,12 @@
    $localname = $_SESSION['username'];
    $id=$_GET['id'];
    $this_article = "select * from diary where id = '$id'";
-   $this_articleQuery = mysql_query($this_article)or die(mysql_errno());
-   $this_articleQueryList  = mysql_fetch_array($this_articleQuery);
+   $this_articleQuery = mysqli_query($this_article)or die(mysqli_errno());
+   $this_articleQueryList  = mysqli_fetch_array($this_articleQuery);
    //var_dump(expression);
    $article = "select * from diary where username = '$localname'";
-   $articleSql = mysql_query($article) or die(mysql_error());
-   $articleSqlList  = mysql_fetch_array($articleSql);
+   $articleSql = mysqli_query($article) or die(mysqli_error());
+   $articleSqlList  = mysqli_fetch_array($articleSql);
 
 ?>
 <!DOCTYPE html>

@@ -75,16 +75,16 @@
     }
 	$email = $_POST[email];
 	$password = md5($_POST[pwd]);
-    $sql = "select email from 'user' where email ='$email'";
-    $sqlQuery = mysql_query($sql);
-    $sqlRow = mysql_fetch_array($sqlQuery);
+    $sql = "select email from user where email ='$email'";
+    $sqlQuery = mysqli_query($conn,$sql)or die(mysqli_error($conn));
+    $sqlRow = mysqli_fetch_array($sqlQuery);
     if (!$sqlRow) {
         if ($destination) {
             $changeInfoSql = "update user set phonenum = '$email',email = '$email',password='$password',headimg = '$destination' where username = '$username'";
         }else{
             $changeInfoSql = "update user set phonenum = '$email',email = '$email',password='$password' where username = '$username'";
         }
-        $ss=mysql_query($changeInfoSql);
+        $ss=mysqli_query($conn,$changeInfoSql)or die(mysqli_error($conn));
         $home_url = "person.php";
         header('location:'.$home_url);
     	
@@ -94,3 +94,4 @@
     }
 
 ?>
+<?php ?>

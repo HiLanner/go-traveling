@@ -1,11 +1,29 @@
+<?php
+include("conn.php");
+//error_reporting(0);
+session_start();
+$username = $_SESSION['username'];
+$content = $_POST['content'];
+echo $username;
+$picSql = "insert into picture(username,pic,time) values ('$username','$content',now())";
+$picQuery = mysqli_query($conn,$picSql) or die(mysqli_error());
+mysqli_close($conn);
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">	
-	<link rel="stylesheet" type="text/css" href="../css/self.css">	
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 	<link rel="stylesheet" type="text/css" href="../css/font-awesome-4.5.0/css/font-awesome.css">
+	<!--	引用ueditor-->
+	<link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../umeditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../umeditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>
+
 <body>
 	<header class="header">
 		<div class="container">
@@ -19,17 +37,40 @@
 		            <li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>	
     <div class="img-show bgImg">
 		<img src="../image/info01.jpeg"/>
 	</div>
-	<div class="container upload-photo">
-       	<form action="person.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
-           <p><label></label><input type="file"/></p>
-           <p><label></label><input type="submit" value="上传"/></p>
-        </form>
+	<div class="container upload-photo" style="border: none">
+       	<form action="" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+
+			<script type="text/plain" id="myEditor" name="content" style="width:1000px;height:240px;">
+                按ctrl选择更多选择图片
+            </script>
+
+			<script type="text/javascript">
+				var ue = UE.getEditor('myEditor',{
+
+					toolbars:[['insertimage']]
+				});
+//				function editor()
+			</script>
+			<p><label></label><input type="submit" value="提交"/></p>
+
+		</form>
 	</div>	
 	<footer>
 		<p>@copyright by工程项目小分队</p>

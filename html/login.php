@@ -1,16 +1,16 @@
 <?php
     session_start();
     include("conn.php"); 
-    error_reporting(0);
+//    error_reporting(0);
 
      if(isset($_POST["submit"])){
       $email = $_POST[email];
       $password = md5($_POST[pwd]);
       $userSql = "select password,username from user where email ='$email'";
   
-      $userQuery = mysql_query($userSql);      
+      $userQuery = mysqli_query($conn,$userSql);
 
-      $userRow = mysql_fetch_array($userQuery);
+      $userRow = mysqli_fetch_array($userQuery);
       //var_dump($userRow);
       //exit();
       if (!$userRow) {

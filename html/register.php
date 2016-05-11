@@ -4,8 +4,8 @@
     if(isset($_POST["submit"])){
       $user = $_POST[user_name];
       $userSql = "select username from `user` where username ='$user'";
-      $userQuery = mysql_query($userSql);
-      $userRow = mysql_fetch_array($userQuery);
+      $userQuery = mysqli_query($conn,$userSql);
+      $userRow = mysqli_fetch_array($userQuery);
       if($userRow){
         ?>
           <div id="error">
@@ -15,10 +15,10 @@
         }else{
           $pwd = md5($_POST[pwd]);
       $sql = "insert into user (username,phonenum,email,password,logintime) values ('$_POST[user_name]','$_POST[email]','$_POST[email]','$pwd',now())";
-      mysql_query($sql);
+      mysqli_query($conn,$sql);
       
         }
-      mysql_close();
+      mysqli_close($conn);
     }else{
     }
     

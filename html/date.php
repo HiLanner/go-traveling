@@ -9,11 +9,11 @@
       $content = $_POST['content'];
 
       $textSql = "insert into diary(username,title,content,time) values ('$username','$title','$content',now())";
-      echo($textSql);
-      $textQuery = mysql_query($textSql) or die(mysql_error());
+      //echo($textSql);
+      $textQuery = mysqli_query($conn,$textSql) or die(mysqli_error());
       //$userRow = mysql_fetch_array($textQuery);
       //var_dump($userRow);
-      mysql_close();
+      mysqli_close();
     // }else{
     // 	echo("aaa");
     // }
@@ -26,6 +26,12 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">	
 	<link rel="stylesheet" type="text/css" href="../css/self.css">	
 	<link rel="stylesheet" type="text/css" href="../css/font-awesome-4.5.0/css/font-awesome.css">
+<!--	引用ueditor-->
+	<link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../umeditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../umeditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>
 <body>
 	<header class="header">
 		<div class="container">
@@ -59,7 +65,13 @@
 	<div class="container write-date">
        	<form action="date.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label>标题：</label><input type="text" class="txt-title" name="txt-title"/><span class="title-error">标题不得少于5个字</span></p>
-           <p><label></label><textarea cols="80" rows="30" name="content"></textarea><span class="title-error">不得为空</span></p>
+           <!--<p><label></label><textarea cols="80" rows="30" name="content"></textarea><span class="title-error">不得为空</span></p>-->
+			<script type="text/plain" id="myEditor" name="content" style="width:1000px;height:240px;">
+                这里我可以写一些输入提示
+            </script>
+			<script type="text/javascript">
+				var ue = UE.getEditor('myEditor');
+			</script>
            <p><label></label><input type="submit" value="提交"/></p>
         </form>
 	</div>	
