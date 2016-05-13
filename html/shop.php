@@ -1,3 +1,7 @@
+<?php
+  error_reporting(0);
+  include ("conn.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -49,211 +53,70 @@
 	</div>
 	<div class="container shopping">
 		<div class="shopping shopHotel">
-		    <h3>酒店推荐</h3>
+		    <h3><a href="hotel.php">酒店推荐</a></h3>
+			<?php
+			     $sqlHotel = "select * from merchant where sorts = 'hotel'";
+			     $sqlHotelQuery = mysqli_query($conn,$sqlHotel) or die(mysqli_errno());
+			?>
 			<ul class="list">
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
+				<?php
+                   while($sqlHotelResult = mysqli_fetch_array($sqlHotelQuery)) {
+					   ?>
+					   <li>
+						   <div class="items-img"><img src="<?php echo $sqlHotelResult[img]?>"/>
+						   </div>
+						   <div class="items-intro">
+							   <span><?php echo $sqlHotelResult[describtion] ?></span>
+						   </div>
+					   </li>
+					   <?php
+				   }
+				?>
 			</ul>
 		</div>
 		<div class="shopping shopSpeciality">
-		    <h3>特产路线</h3>
+		    <h3><a href="specialty.php">特产路线</a></h3>
+			<?php
+			$sqlSpecialty = "select * from merchant where sorts = 'specialty'";
+			$sqlSpecialtyQuery = mysqli_query($conn,$sqlSpecialty) or die(mysqli_errno());
+			?>
 			<ul class="list">
+				<?php
+				while($sqlSpecialtyResult = mysqli_fetch_array($sqlSpecialtyQuery)) {
+				?>
 				<li>
 					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
+						<img src="<?php echo $sqlSpecialtyResult[img] ?>"/>
 					</div>
 					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
+						<span><?php echo $sqlSpecialtyResult[describtion] ?></span>
 					</div>
 				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city04.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-			</ul>			
+					<?php
+				 }
+				?>
+			</ul>
 		</div>
 		<div class="shopping shopCar">
-		    <h3>租车推荐</h3>
-			<ul class="list">
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city03.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店</span>
-					</div>
-				</li>
-			</ul>
+		    <h3><a href="bookcar.php">租车推荐</a></h3>
+			<?php
+				$sqlCar = "select * from merchant where sorts = 'car'";
+				$sqlCarQuery = mysqli_query($conn, $sqlCar) or die(mysqli_errno());
+				?>
+				<ul class="list">
+					<?php
+					while ($sqlCarResult = mysqli_fetch_array($sqlCarQuery)) {
+						?>
+						<li>
+							<div class="items-img">
+								<img src="<?php echo $sqlCarResult[img] ?>"/>
+							</div>
+							<div class="items-intro">
+								<span><?php echo $sqlCarResult[describtion] ?></span>
+							</div>
+						</li>
+					<?php } ?>
+				</ul>
 		</div>
 	</div>
 	</div>

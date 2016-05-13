@@ -1,3 +1,7 @@
+<?php
+error_reporting(0);
+include ("conn.php");
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -40,106 +44,26 @@
 	</div>
 	<div class="container shopping">
 		<div class="shopping shopHotel hotel">
-			<!-- <form class="buy-search">
-			  <input type="text" value="请输入城市" /><input type="submit" value="查询"/>
-			</form> -->
-		    <h3>特产推荐</h3>
+			<h3><a href="specialty.php">特产路线</a></h3>
+			<?php
+			$sqlSpecialty = "select * from merchant where sorts = 'specialty'";
+			$sqlSpecialtyQuery = mysqli_query($conn,$sqlSpecialty) or die(mysqli_errno());
+			?>
 			<ul class="list">
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li><li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
-				<li>
-					<div class="items-img">
-						<img src="../image/city02.jpeg"/>
-					</div>
-					<div class="items-intro">
-						<span>这是一个很好的酒店这是一个很好的酒店这是一个很好的酒店</span><b>100/天</b><a href="#">购买</a>
-					</div>
-				</li>
+				<?php
+				while($sqlSpecialtyResult = mysqli_fetch_array($sqlSpecialtyQuery)) {
+					?>
+					<li>
+						<div class="items-img">
+							<img src="<?php echo $sqlSpecialtyResult[img] ?>"/>
+						</div>
+						<div class="items-intro">
+							<span><?php echo $sqlSpecialtyResult[describtion] ?><a href="#">购买</a></span>
+						</div>
+					</li>
+					<?php
+				}
+				?>
 			</ul>
 		</div>
 	</div>

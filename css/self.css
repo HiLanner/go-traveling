@@ -147,5 +147,18 @@ input{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 
 .myRoadline_ul_ul>li{background: #fff;}
 .myRoadlinea_ul_ul a{color: rgb(36,209,151);}
 
-
+/*商家*/
+.merchantUpload input{border: 1px solid rgb(36,209,151);}
+.merchantUpload input[type='text'],.merchantUpload input[type='password']{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 200px;border: #ccc 1px solid;}
+.change-tips{font-size:12px;display:none;line-height: 15px;width: 200px;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
+.tips_error{font-size:12px;line-height: 15px;width: 200px;display: inline-block;margin-left: 15px;border: 1px solid rgb(36,209,151);border-radius: 4px;position: absolute;padding: 5px;}
+.merchantUpload input[type='button']{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.merchantUpload input[type='submit']{border: 2px solid rgb(36,209,151);background: rgb(36,209,151);color: #fff;width: 80px;height: 40px;text-align:center;line-height: 35px;border-radius: 3px;}
+.merchantUpload input[type="text"]:focus,.merchantUpload input[type="password"]:focus{
+	box-shadow: 0 0 5px rgba(36,209,151, 1);
+	-webkit-box-shadow: 0 0 5px rgba(36,209,151, 1);
+	-moz-box-shadow: 0 0 5px rgba(36,209,151, 1);
+}
+.merchantUpload textarea{border: 2px solid rgb(36,209,151);border-radius: 4px;}
+.merchantUpload label{display:inline-block;width: 100px;text-align: right;}
 

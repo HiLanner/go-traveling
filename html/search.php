@@ -1,28 +1,15 @@
 <?php
 error_reporting(0);
-if($_GET["action"]!=''){
-    $keyword=$_GET["keyword"];
-    $keyword=str_replace("[","[[]",$keyword);
-    $keyword=str_replace("&","[&]",$keyword);
-    $keyword=str_replace("%","[%]",$keyword);
-    $keyword=str_replace("^","[^]",$keyword);
-    $sql="select title,zancommit from diary where title like '%".$keyword."%' order by zancommit desc limit 10";
-    $result=mysql_query($sql);
-    if($result){
-        $i=1;$title='';$zancommit='';
-        while($row=mysql_fetch_array($result,MYSQLI_BOTH))
-        {
-            $title=$title.$row['title'];
-            $zancommit=$zancommit.$row['zancommit'];
-            if($i<mysql_num_rows($result))
-            {
-                $title=$title."|";
-                $zancommit=$zancommit."|";
-            }
-            $i++;
-        }
+include ("conn.php");
+$queryString = $_POST['queryString'];
+if(strlen($queryString) >0) {
+    //$sql= "SELECT * FROM diary";
+    $sql= "SELECT title FROM diary WHERE title LIKE '".$queryString."%' LIMIT 10";
+    $query = mysqli_query($conn,$sql)or die("有错");
+    while ($result = mysqli_fetch_array($query,MYSQL_BOTH)){
+        $value=$result['title'];
+        echo '<li onClick="fill(\''.$value.'\');">'.$value.'</li>';
     }
-    mysql_close();
 }
 ?>
-<?php echo $title.'$'.$zancommit;?>
+<?php ?>
