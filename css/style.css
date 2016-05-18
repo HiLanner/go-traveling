@@ -137,10 +137,13 @@ a{color: #000;text-decoration: none;}
 .recomand span{color: #676767;}
 .recomand a{float: right;margin-right:10px;color: #D59E65;}
 .recomand a:hover{text-decoration: underline;}
-.place-tip-shop dt{display: inline-block;height: 100%;}
-.place-tip-shop dd{display: inline-block;height: 100%;}/**/
-.place-tip-shop dl dt,.place-tip-shop dl dd{float: left;font-size: 14px;padding: 2px;}
-.place-tip-shop dt img,.place-tip-shop dd img{height: 80px;width: 100%;}
+.place-tip-shop dl{width: 100%;
+	height:150px;
+    overflow: hidden;}
+.place-tip-shop dl dt,.place-tip-shop dl dd{vertical-align:top;display:inline-block;font-size: 14px;padding: 2px;}
+.place-tip-shop dl dt{width: 30%}
+.place-tip-shop dl dd{width: 60%}
+.place-tip-shop dt img,.place-tip-shop dd img{height: 150px;width: 100%;}
 .tip ul{margin-top: 5px;margin-left: 20px;}
 .tip ul li{line-height: 25px;font-size: 16px;color: #444;list-style: url(../image/icon03.png);}
 .tip ul li:hover{text-decoration: underline;cursor: pointer;}
@@ -287,25 +290,19 @@ footer p{
 
 .city-short-intro{width: 300%;height: 580px;}/**/
 .city{width: 33%;height:100%;border: 1px solid #000;display: inline-block;overflow: hidden;position: relative;}
-.left,.right{display: inline-block;}
+.left{display: inline-block;}
 .left{
-	width: 69%;
+	width: 100%;
 }
-.right{
-	width: 30%;
-	margin-left: 2px;
-}
-.left ul li,.right ul li{display: inline-block;height: 290px;overflow: hidden;position: relative;}
-.left .first{width: 100%;}
-.left .other{width: 49%;}
-.other:last-child{float: right;}
+.left ul li{display: inline-block;height: 290px;overflow: hidden;position: relative;}
+.left-ul>li:first-child{width: 50%;}
+.left .other{width: 24%;}
 .left li a,.city-right li a{display: block;height: 100%;}
-.first a img{width: 100%;height: 290px;}
-.other a img{width: 100%;height: 290px;}
-.right a img{width: 100%;height: 290px;}
+.left-ul>li a img{width: 100%;height: 290px;}
+.left-ul>li:first-child a img{width: 100%;height: 290px;}
 .left-ul li ul li,.right-ul li ul li{
     position: absolute;
-    width: 100%;
+    width: 95%;
     height: 100%;
     top: 200px;
     color: #fff;
@@ -383,7 +380,7 @@ footer p{
 	float: right;
 }
 .search-question input[type="text"]{
-	width: 91%;
+	width: 88%;
 	height: 40px;
 	border: 2px solid rgb(36,209,151);
 }
@@ -395,7 +392,7 @@ footer p{
 .search-question input[type="button"]{
 	color: #fff;
 	background: rgb(36,209,151);
-	width: 50px;
+	width: 10%;
 	height: 44px;
 	border: none;
 }
@@ -414,16 +411,19 @@ footer p{
 .sorts-question nav ul{margin-top: 15px;}
 .sorts-question nav ul li{display: inline-block;width: 80px;height: 30px;line-height: 30px;text-align: center;}
 .sorts-question nav ul li:hover{background: rgb(36,209,151);color: #fff;border-radius: 3px;}
+.detail-question{border-bottom: 1px solid #ddd;margin-top: 15px;}
 .detail-question .wenti{color: rgb(36,209,151);}
 .detail-question .wenti img{width: 25px;height: 25px;display: inline-block;float: left;}
-.detail-question .wenti span{display: inline-block;line-height: 25px;height: 25px;float: left;text-indent: 1em;}
-.da .user-info{width: 200px;position: relative;left: 30px;}
-.da .user-info a{font-size: 12px;margin-left: 10px;}
-.da .user-info a:first-child{color: rgb(36,209,151);}
-.da .user-info a:last-child{color: red;}
+.detail-question .wenti a{color: #505050;}
+.detail-question .wenti span{display: inline-block;line-height: 25px;height: 25px;text-indent: 1em;}
+.detail-question .user-info{position: relative;display: inline-block;width: 35%;}
+.detail-question .user-info a{font-size: 12px;margin-left: 10px;}
+.detail-question .user-info a:first-child{color: rgb(36,209,151);}
+.detail-question .user-info a:last-child{color: red;}
 .da-text{color: #666;font-size: 14px;background: #efefef;padding: 10px;}
 .da-text p:first-letter{font-size: 24pt;float: left;color: rgb(36,209,151);}
-.tag ul li{min-width: 60px;text-align: center;float: right;color: #777;font-size: 12px;}
+.tag{display: inline-block;width: 60%;}
+.tag ul li{line-height:35px;min-width: 60px;text-align: center;float: right;color: #777;font-size: 12px;}
 .hot-user h3{line-height: 30px;color: rgb(36,209,151);}
 .hot-user-ul{margin-top: 15px;}
 .hot-user-ul li{height: 50px;width: 100%;}
@@ -493,7 +493,19 @@ footer p{
 .self-content a{color: #777;}
 .self-content address{float: right;font-size: 12px;}
 
-
+/*社区*/
+.reply{
+	display: none;
+	margin: 10px 0;
+}
+.reply form input[type='text']{
+	width: 300px;
+}
+.reply form input[type='submit']{
+	color: #fff;
+	background: rgb(36,209,151);
+	width: 60px;
+}
 
 
 

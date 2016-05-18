@@ -19,7 +19,7 @@
     $tipSqlQuery = mysqli_query($conn,$tip) or die(mysqli_error($conn));
     $questionSqlQuery = mysqli_query($conn,$question) or die(mysqli_error($conn));
     $dateList = mysqli_fetch_array($dateSqlQuery);
-    $roadlineList = mysqli_fetch_array($roadlineSqlQuery);
+
     $tipList = mysqli_fetch_array($tipSqlQuery);
     $questionList = mysqli_fetch_array($questionSqlQuery);
 
@@ -49,10 +49,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -115,10 +115,11 @@
        <div class="self self-dt">
        	  <nav class="dt-nav">
        	  	<ul>
-       	  		<li>游记</li>
-       	  		<li>攻略</li>
-       	  		<li>讨论</li>
-       	  		<li>相册</li>
+       	  		<li><a href="myDate.php">游记</a></li>
+       	  		<li><a href="allTips.php">攻略</a></li>
+				<li><a href="myRoadline.php">路线</a></li>
+       	  		<li><a href="myQandA.php">讨论</a></li>
+       	  		<li><a href="ablum.php">相册</a></li>
        	  	</ul>
        	  </nav>
        	  <div class="self-content dt-date">
@@ -156,7 +157,7 @@
              </div> 
        	  </div>
           <div class="self-content dt-tips">
-       	    <h3>我的攻略<i class="fa fa-pencil" aria-hidden="true"><a href="upload_roadline.php">写路线</a></i><i class="fa fa-pencil" aria-hidden="true"><a href="upload_tip.php">写攻略</a></i></h3>
+       	    <h3>我的攻略<i class="fa fa-pencil" aria-hidden="true"><a href="upload_tip.php">写攻略</a></i></h3>
        	  	<?php
        	  	   while($tipList = mysqli_fetch_array($tipSqlQuery)){
        	  	?>
@@ -166,7 +167,7 @@
 	            	<?php echo ($tipList[tipcontent])?>
 	            </div>
 	       	  	<div class="left-img">
-	            	<img src="../image/02.jpg"/>
+	            	<img src="<?php echo $tipList[img] ?>"/>
 	            </div>
             </div>
             <?php 
@@ -189,10 +190,44 @@
 		        &gt; </a>
              </div> 
        	  </div>
+		   <div class="self-content dt-roadlines">
+			   <h3>我的路线<i class="fa fa-pencil" aria-hidden="true"><a href="upload_roadline.php">写路线</a></i></h3>
+			   <?php
+			   while($roadlineList = mysqli_fetch_array($roadlineSqlQuery)){
+				   ?>
+				   <div class="sort dt-content">
+					   <div class="text-deraction">
+						   <h3><a href="#"><?php echo $roadlineList[city]; ?></a><time><?php echo ($roadlineList[time])?></time></h3>
+						   <?php echo ($roadlineList[roadline])?>
+					   </div>
+					   <div class="left-img">
+						   <img src="<?php echo $roadlineList[img] ?>"/>
+					   </div>
+				   </div>
+				   <?php
+			   }
+			   ?>
+
+			   <div class="digg">
+				   <span class="disabled">&lt; </span>
+				   <span class="current">1</span>
+				   <a href="#?page=2">2</a>
+				   <a href="#?page=3">3</a>
+				   <a href="#?page=4">4</a>
+				   <a href="#?page=5">5</a>
+				   <a href="#?page=6">6</a>
+				   <a href="#?page=7">7</a>
+				   ...
+				   <a href="#?page=199">199</a>
+				   <a href="#?page=200">200</a>
+				   <a href="#?page=2">
+					   &gt; </a>
+			   </div>
+		   </div>
        	  <div class="self-content dt-discuss">
-       	  	<div class="set-discuss">
-       	  		<h3>我的讨论<i class="fa fa-pencil" aria-hidden="true"><a href="askQuestion.php">写问题</a></i></h3>
-	       	  	<?php
+				<h3>我的讨论<i class="fa fa-pencil" aria-hidden="true"><a href="askQuestion.php">写问题</a></i></h3>
+
+				<?php
        	  	    while($questionList = mysqli_fetch_array($questionSqlQuery)){
        	  	    ?>
 	       	  	<p class="my-question">Q:<?php echo($questionList[question]) ?><time><?php echo($questionList[time]) ?></time></p>
@@ -200,7 +235,6 @@
 	            <?php
                   }
 	            ?>
-       	  	</div>
        	  	<div class="digg"> 
 		        <span class="disabled">&lt; </span>
 		        <span class="current">1</span>

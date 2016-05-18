@@ -1,22 +1,8 @@
 <?php
-      include("conn.php");
-      error_reporting(0);
-      session_start();
-   	  $username = $_SESSION['username'];
-      $province = $_POST['s_province'];
-      $city = $_POST['s_city'];
-      $county = $_POST['s_county'];
-      $place = $province." ".$city." ".$county;
-      $interst = $_POST['interst'];
-      $tip = $_POST['my_tip'];
-       echo $place;
-       echo $interst;
-      $tipSql = "insert into tip (username,city,interst,tipcontent,time) values ('$username','$place','$interst','$tip',now())";
-      $tipQuery = mysql_query($tipSql) or die(mysql_error()) ;
-      if ($tipQuery) {
-      $home_url = "person.php";
-      header('location:'.$home_url);
-      }
+include("conn.php");
+error_reporting(0);
+session_start();
+$username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -33,10 +19,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -57,13 +43,14 @@
 		<img src="../image/info01.jpeg"/>
  	</div>
 	<div class="container roadline">
-       	<form action="upload_tip.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+       	<form action="../php/submit.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label>地点：</label>
             <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
             <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
             <select id="s_county" name="s_county"></select>
            <p><label>景点：</label><input type="text" name="interst"/></p>
            <p><label>攻略：</label><textarea name="my_tip" ></textarea>
+			<p><label>上传图片：</label><input type="file" name="file" /></p>
            <p><label></label><input type="submit" value="上传"/></p>
         </form>
         <script language="javascript" src="../js/areaa.js"></script>

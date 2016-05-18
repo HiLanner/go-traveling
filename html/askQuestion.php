@@ -1,19 +1,10 @@
 <?php
-   //error_reporting(0);
+   error_reporting(0);
    include("conn.php");
    header('Content_Type:text/html;charset=utf-8'); 
    session_start();
-   	  $username = $_SESSION['username'];
-      $question = $_POST['question'];
-       //echo $username;
-       //echo $question;
-      $questionSql = "insert into question (username,question,time) values ('$username','$question',now())";
-      $questionQuery = mysql_query($questionSql) or die(mysql_error()) ;
-      // if ($questionQuery) {
-      // $home_url = "person.php";
-      // header('location:'.$home_url);
-      // }
-
+   $username = $_SESSION['username'];
+      
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -30,10 +21,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -54,7 +45,7 @@
 		<img src="../image/info01.jpeg"/>
 	</div>
 	<div class="container ask-question">
-       	<form action="askQuestion.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+       	<form action="../php/submit.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label></label><input type="text" name="question"/></p>
            <p><label></label><input type="submit" value="发布"/></p>
         </form>

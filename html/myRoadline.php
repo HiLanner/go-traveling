@@ -1,3 +1,18 @@
+<?php
+include("conn.php");
+session_start();
+error_reporting(0);
+$localname = $_SESSION['username'];
+$inforSql = "select * from user where username = '$localname'";
+$inforSqlQuery = mysqli_query($conn,$inforSql);
+$resultArray = mysqli_fetch_array($inforSqlQuery);
+$localimg = $resultArray[headimg];
+$_SESSION['img'] = $localimg;
+$url ='<img src="../upload/'.$resultArray[headimg].'" />';
+$_SESSION['url'] = $url;
+$roadline = "select * from roadline where username = '$localname'";
+$roadlineSqlQuery = mysqli_query($conn,$roadline) or die(mysqli_error($conn));
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -13,13 +28,24 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>	
     <div class="img-show bgImg">
@@ -27,30 +53,13 @@
 	</div>
 	<div class="container myRoadline">
        	<ul class="myRoadline_ul">
-       		<li><b>地点:</b><span>地点地点地点地点地点</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">day1</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day2</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day3</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day4</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
+			<?php
+			while($roadlineList = mysqli_fetch_array($roadlineSqlQuery)){
+			?>
+       		<li><b>地点:</b><span><?php echo $roadlineList[city]?></span>
+              <p><?php echo $roadlineList[roadline]?></p>
        		</li>
-       		<li><b>地点:</b><span>地点地点地点地点地点</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">day1</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day2</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day3</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day4</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
-       		</li>
-       		<li><b>地点:</b><span>地点地点地点地点地点</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">day1</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day2</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day3</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">day4</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
-       		</li>
+			<?php } ?>
        	</ul>
 	</div>	
 	<footer>

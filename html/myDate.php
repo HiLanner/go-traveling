@@ -5,14 +5,16 @@
    session_start();
    $localname = $_SESSION['username'];
    $id=$_GET['id'];
-   $this_article = "select * from diary where id = '$id'";
-   $this_articleQuery = mysqli_query($this_article)or die(mysqli_errno());
+   if($id){
+     $this_article = "select * from diary where id = '$id'";
+   }else{
+	   $this_article = "select * from diary";
+   }
+   $this_articleQuery = mysqli_query($conn,$this_article)or die(mysqli_error());
    $this_articleQueryList  = mysqli_fetch_array($this_articleQuery);
-   //var_dump(expression);
    $article = "select * from diary where username = '$localname'";
-   $articleSql = mysqli_query($article) or die(mysqli_error());
+   $articleSql = mysqli_query($conn,$article) or die(mysqli_error());
    $articleSqlList  = mysqli_fetch_array($articleSql);
-
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -30,24 +32,35 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>
 	<div class="container dateDetail">
 		<div class="date_style date_list">
 			<ul class="date_list_ul">
 				<?php
-                  while ($articleSqlList  = mysql_fetch_array($articleSql)) {                  
+                  while ($articleSqlList  = mysqli_fetch_array($articleSql)) {
 				?>
 				<li>
                     <ul>
-                       <li><a href="#"><?php echo $articleSqlList[title]; ?></a><time><?php echo $articleSqlList[time]; ?></time></li>
+                       <li><a href="myDate.php?id=<?php echo $articleSqlList[id]; ?>"><?php echo $articleSqlList[title]; ?></a><time><?php echo $articleSqlList[time]; ?></time></li>
                     </ul>					
 				</li>
 				<?php

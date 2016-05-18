@@ -1,9 +1,26 @@
+<?php
+include("conn.php");
+session_start();
+error_reporting(0);
+$localname = $_SESSION['username'];
+$inforSql = "select * from user where username = '$localname'";
+$inforSqlQuery = mysqli_query($conn,$inforSql);
+$resultArray = mysqli_fetch_array($inforSqlQuery);
+$localimg = $resultArray[headimg];
+$_SESSION['img'] = $localimg;
+$url ='<img src="../upload/'.$resultArray[headimg].'" />';
+$_SESSION['url'] = $url;
+$tip = "select * from tip where username = '$localname'";
+$tipSqlQuery = mysqli_query($conn,$tip) or die(mysqli_error($conn));
+$tipList = mysqli_fetch_array($tipSqlQuery);
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 </head>
 <body>
 	<header class="header">
@@ -12,13 +29,24 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>
 	<div class="img-content">
@@ -40,35 +68,18 @@
 	</div>
 	<div class="container shopping">
 		<div class="shopping roadline">
-			<!-- <form class="buy-search">
-			  <input type="text" value="请输入城市" /><input type="submit" value="查询"/>
-			</form> -->
-		    <h3>路线推荐</h3>
+		    <h3>攻略推荐</h3>
 			<ul class="roadline-ul">
+				<?php while($tipList = mysqli_fetch_array($tipSqlQuery)){
+
+					?>
                <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
+                  <div class="city-img"><img src="<?php echo $tipList[img]?>" /></div>
+                  <div class="day-detail"><p><?php echo $tipList[tipcontent] ?></p></div>
                </li>
-               <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
-               </li>
-               <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
-               </li>
-               <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
-               </li>
-               <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
-               </li>
-               <li class="roadline-ul-li">
-                  <div class="city-img"><img src="../image/city02.jpeg" /></div>
-                  <div class="day-detail"><p>去这里去这里去这里</p></div>
-               </li>
+				<?php
+				}
+				?>
 			</ul>
 		</div>
 	</div>

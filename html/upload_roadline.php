@@ -1,23 +1,9 @@
 <?php
    include("conn.php");
-   header('Content_Type:text/html;charset=utf-8'); 
+   header('Content_Type:text/html;charset=utf-8');
+   error_reporting(0);
    session_start();
    	  $username = $_SESSION['username'];
-      $province = $_POST['s_province'];
-      $city = $_POST['s_city'];
-      $county = $_POST['s_county'];
-      $place = $province." ".$city." ".$county;
-      //$interst = $_POST['interst'];
-      $roadline = $_POST['roadline'];
-       //echo $username;
-       //echo $question;
-      $roadlineSql = "insert into roadline (username,city,roadline,time) values ('$username','$place','$roadline',now())";
-      $roadlineQuery = mysql_query($roadlineSql) or die(mysql_error()) ;
-      if ($roadlineQuery) {
-      	# code...
-      $home_url = "person.php";
-      header('location:'.$home_url);
-      }
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -34,10 +20,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -58,11 +44,12 @@
 		<img src="../image/info01.jpeg"/>
  	</div>
 	<div class="container roadline">
-       	<form action="upload_roadline.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+       	<form action="../php/submit.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label>地点：</label>
             <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
             <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
             <select id="s_county" name="s_county"></select></p>
+			<p><label>上传图片：<input type="file" name="file" /></label></p>
            <p><label>路线：</label><textarea name = "roadline"></textarea></p>
            <p><label></label><input type="submit" value="上传"/></p>
         </form>

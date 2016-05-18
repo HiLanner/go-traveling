@@ -3,31 +3,23 @@
    header('Content_Type:text/html;charset=utf-8'); 
    error_reporting(0);
    session_start();
+   $id=$_GET['id'];
    $localname = $_SESSION['username'];
    $inforSql = "select * from user where username = '$localname'";
-   $inforSqlQuery = mysql_query($inforSql);
-   $resultArray = mysql_fetch_array($inforSqlQuery);
+   $inforSqlQuery = mysqli_query($conn,$inforSql);
+   $resultArray = mysqli_fetch_array($inforSqlQuery);
    $localimg = $resultArray[headimg];
-   $id=$_GET['id'];
    $this_article = "select * from diary where id = '$id'";
-   $this_articleQuery = mysql_query($this_article)or die(mysql_errno());
-   $this_articleQueryList  = mysql_fetch_array($this_articleQuery);
+   $this_articleQuery = mysqli_query($conn,$this_article)or die(mysqli_error());
+   $this_articleQueryList  = mysqli_fetch_array($this_articleQuery);
    //var_dump(expression);
    $article = "select * from diary";
-   $articleSql = mysql_query($article) or die(mysql_error());
-   $articleSqlList  = mysql_fetch_array($articleSql);
-   $commit = "select * from commit where article_id = '$id'";
-   $commitQuery = mysql_query($commit);
-   $resultRows = mysql_fetch_array($commitQuery);
-   $commit_num = mysql_num_rows($commitQuery);
-   // 提交评论
-
-   $commit = $_POST['commitcontent'];
-   $submitSql = "insert into commit(commitcontent,username,article_id,time) values ('$commit','$localname','$id',now())";
-   $submitQuery = mysql_query($submitSql) or die(mysql_error());
-   if(!$commitQuery){
-      echo "shibai";
-   };
+   $articleSql = mysqli_query($conn,$article) or die(mysqli_error());
+   $articleSqlList  = mysqli_fetch_array($articleSql);
+   $commit = "select * from commit where article_id = '$id' order by time desc";
+   $commitQuery = mysqli_query($conn,$commit);
+   $commit_num = mysqli_num_rows($commitQuery);
+   
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -45,10 +37,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -118,7 +110,7 @@
 				<?php echo($this_articleQueryList[content]) ?>
 			</article>
 			<div class="self_commit">
-				<form  name="myform" method="post" >
+				<form action="../php/submit.php?id=<?php echo $this_articleQueryList[id]; ?>" name="myform" method="post" >
                     <label><input type="text" name="commitcontent" /></label>
                     <label><input type="submit" value="评论" /></label>
                     <label><input type="button" value="点赞" /></label>
@@ -126,12 +118,12 @@
 			</div>
 			<nav class="other_commit">
 				<?php 
-                    while ($resultRows = mysql_fetch_array($commitQuery)) {
+                    while ($resultRows = mysqli_fetch_array($commitQuery)) {
                        	$commituser = "select * from user where username = '$resultRows[username]'";
-						$commituserQuery = mysql_query($commituser)or die(mysql_error());
-					    $resultuserRows = mysql_fetch_array($commituserQuery);
+						$commituserQuery = mysqli_query($conn,$commituser)or die(mysqli_error());
+					    $resultuserRows = mysqli_fetch_array($commituserQuery);
 				 ?>
-				<li><img src="../image/<?php echo($resultuserRows[headimg]); ?>"/><b><?php echo($resultRows[username]) ?></b>：<span><?php echo($resultRows[commitcontent]) ?></span><time><?php echo($resultRows[time]) ?></time></li>
+				<li><img src="<?php echo($resultuserRows[headimg]); ?>"/><b><?php echo($resultRows[username]) ?></b>：<span><?php echo($resultRows[commitcontent]) ?></span><time><?php echo($resultRows[time]) ?></time></li>
 				<?php
 				}
 				?>

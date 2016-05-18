@@ -1,9 +1,24 @@
+<?php
+include("conn.php");
+include("page.php");
+include("search.php");
+session_start();
+error_reporting(0);
+$localname = $_SESSION['username'];
+$inforSql = "select * from user where username = '$localname'";
+$inforSqlQuery = mysqli_query($conn,$inforSql);
+$resultArray = mysqli_fetch_array($inforSqlQuery);
+$localimg = $resultArray[headimg];
+$tip = "select * from tip order by time desc";
+$tipSqlQuery = mysqli_query($conn,$tip) or die(mysqli_error());
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 </head>
 <body>
 	<header class="header">
@@ -12,13 +27,23 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
-			</nav>
-			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
+			</nav><?php
+			if(!isset($_SESSION['username'])){
+				//var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><img src="../image/<?php echo($localimg) ?>">|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>
 	<div class="img-content">
@@ -97,82 +122,27 @@
 	    <h3>热门推荐</h3>
 		<div class="left recomand-left">
 			<ul class="left-ul recomand-left-ul">
-				<li class="first first-recomand"><a href="#"><img src="../image/city01.jpeg"></a>
-                    <ul>
-                    	<li class="items items-recomand">
+				<?php
+				while($tipList = mysqli_fetch_array($tipSqlQuery)) {
+					?>
+					<li class="first first-recomand"><a href="#"><img src="<?php echo $tipList[img] ?>"></a>
+						<ul>
+							<li class="items items-recomand">
                             <span class="day">
                             	<em>乐</em>
                             	<br/>
                             	<strong>在</strong>
-                            </span> 
-                    		<h3>青岛</h3>
-                    		<p> 记忆里，青岛最赏心悦目的景色，是在远离陆地的海上，站在游艇弦前，坐在木舢板船头；是透过观光直升机的舷窗，沿着海岸线一直往前飞；是在将近崂顶的垭口，穿过清澈的空气，远远望着，楼宇如一线，宛若盆景，静卧在山海之间。青岛的特色，呈现在落日余晖中的老城老街，在海雾弥漫中的山海间，在风雨来临前的海岸线；初春百花苑新绿的紫藤，春末中山公园如雪的落樱，秋季中山公园鹅黄的银杏叶，冬日崂山墨染飞白的峰峦。</p>
-                    	</li>
-                    </ul>
-				</li>
-				<li class="other other-recomand"><a href="#"><img src="../image/city01.jpeg"></a>
-                    <ul>
-                    	<li class="items items-recomand">
-                            <span class="day">
-                            	<em>DAY</em>
-                            	<br/>
-                            	<strong>3</strong>
-                            </span> 
-                    		<h3>武汉3日游</h3>
-                    		<p>D1 伏见稻荷大社(2小时) → 三十三间堂(1.5小时) → 锦市场(1.5小时) → 先斗町(1小时) → 鸭川(1小时)</p>
-                    		<p>D2 清水坂(10分钟) → 清水寺(2小时) → 二年坂·三年坂(1.5小时) → 八坂神社</p>
-                    	</li>
-                    </ul>
-				</li>
-				<li class="other other-recomand"><a href="#"><img src="../image/city01.jpeg"></a>
-                    <ul>
-                    	<li class="items items-recomand">
-                            <span class="day">
-                            	<em>DAY</em>
-                            	<br/>
-                            	<strong>3</strong>
-                            </span> 
-                    		<h3>武汉3日游</h3>
-                    		<p>D1 伏见稻荷大社(2小时) → 三十三间堂(1.5小时) → 锦市场(1.5小时) → 先斗町(1小时) → 鸭川(1小时)</p>
-                    		<p>D2 清水坂(10分钟) → 清水寺(2小时) → 二年坂·三年坂(1.5小时) → 八坂神社</p>
-                    	</li>
-                    </ul>
-				</li>
+                            </span>
+								<h3><?php echo $tipList[interst]?></h3>
+								<p><?php echo $tipList[tipcontent] ?></p>
+							</li>
+						</ul>
+					</li>
+					<?php
+				}
+				?>
 			</ul>
 		</div>
-		<div class="right recomand-right">
-		    <ul class="right-ul recomand-right-ul">
-			   <li><a href="#"><img src="../image/city01.jpeg"></a>
-                    <ul>
-                    	<li class="items items-recomand">
-                            <span class="day">
-                            	<em>DAY</em>
-                            	<br/>
-                            	<strong>3</strong>
-                            </span> 
-                    		<h3>武汉3日游</h3>
-                    		<p>D1 伏见稻荷大社(2小时) → 三十三间堂(1.5小时) → 锦市场(1.5小时) → 先斗町(1小时) → 鸭川(1小时)</p>
-                    		<p>D2 清水坂(10分钟) → 清水寺(2小时) → 二年坂·三年坂(1.5小时) → 八坂神社</p>
-                    	</li>
-                    </ul>
-				</li>
-				<li><a href="#"><img src="../image/city01.jpeg"></a>
-                    <ul>
-                    	<li class="items items-recomand">
-                            <span class="day">
-                            	<em>DAY</em>
-                            	<br/>
-                            	<strong>3</strong>
-                            </span> 
-                    		<h3>武汉3日游</h3>
-                    		<p>D1 伏见稻荷大社(2小时) → 三十三间堂(1.5小时) → 锦市场(1.5小时) → 先斗町(1小时) → 鸭川(1小时)</p>
-                    		<p>D2 清水坂(10分钟) → 清水寺(2小时) → 二年坂·三年坂(1.5小时) → 八坂神社</p>
-                    	</li>
-                    </ul>
-				</li>
-			</ul>
-		</div>
-
 	</div>
 		<div class="clear"></div>
     <footer>

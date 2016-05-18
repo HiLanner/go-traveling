@@ -90,8 +90,14 @@ function chooseSort(){
 		});
 	})
 }
+function reply() {
+	$('.hot-question-li a').click(function () {
+		$(this).next('.reply').slideToggle();
+	});
+}
 $(document).ready(function(){
 	chooseSort();
+	reply();
 	hotRoadLine();
 	animateImg();
 	toggleTab();

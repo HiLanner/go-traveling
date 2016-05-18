@@ -8,27 +8,20 @@
     $inforSql = "select * from user where username = '$localname'";
     $inforSqlQuery = mysqli_query($conn,$inforSql);
     $resultArray = mysqli_fetch_array($inforSqlQuery);
-    //var_dump($resultArray);  
-    //echo $resultArray[headimg];
     $localimg = $resultArray[headimg];
     $_SESSION['img'] = $localimg;
     $url ='<img src="../upload/'.$resultArray[headimg].'" />';
     $_SESSION['url'] = $url;
     $date = "select * from diary";
     $roadline = "select * from roadline";
-    $tip = "select * from tip";
+    $tip = "select * from tip order by time desc";
     $question = "select * from question where username = '$localname'";
     $dateSqlQuery = mysqli_query($conn,$date) or die(mysqli_error());
     $roadlineSqlQuery = mysqli_query($conn,$roadline) or die(mysqli_error());
     $tipSqlQuery = mysqli_query($conn,$tip) or die(mysqli_error());
     $questionSqlQuery = mysqli_query($conn,$question) or die(mysqli_error());
     $dateList = mysqli_fetch_array($dateSqlQuery);
-    $roadlineList = mysqli_fetch_array($roadlineSqlQuery);
-    $tipList = mysqli_fetch_array($tipSqlQuery);
     $questionList = mysqli_fetch_array($questionSqlQuery);
-
-  
-    
     $page = $_GET["page"];
     $page_size = 4;
     $rows = mysqli_num_rows($dateSqlQuery);
@@ -53,10 +46,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -112,44 +105,38 @@
 	<div class="container main">
 		<div class="place-tip-shop">
 			<div class="place">
-				<header class="recomand place_recomand"><span>旅游地点推荐</span><a href="#">更多</a></header>
-				<dl>
-					<dt><img src="../image/reconmand02.png"></dt>
-					<dd>
-						<h3>云南</h3>
-						<p>这是一个很美的地方</p>
-						<p>这是一个很美的地方</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt><img src="../image/reconmand02.png"></dt>
-					<dd>
-						<h3>云南</h3>
-						<p>这是一个很美的地方</p>
-						<p>这是一个很美的地方</p>
-					</dd>
-				</dl>
-				<dl>
-					<dt><img src="../image/reconmand02.png"></dt>
-					<dd>
-						<h3>云南</h3>
-						<p>这是一个很美的地方</p>
-						<p>这是一个很美的地方</p>
-					</dd>
-				</dl>
+				<header class="recomand place_recomand"><span>旅游地点推荐</span><a href="tips.php">更多</a></header>
+				<?php
+				 while($tipList = mysqli_fetch_array($tipSqlQuery)) {
+					 ?>
+					 <dl>
+						 <dt><img src="<?php echo $tipList[img]?>"></dt>
+						 <dd>
+							 <h3><?php echo $tipList[interst];?></h3>
+							 <p><?php echo $tipList[tipcontent]?></p>
+						 </dd>
+					 </dl>
+					 <?php
+				 }
+				?>
 			</div>
 			<div class="tip">
-				<header class="recomand tips_recomand"><span>旅游景点攻略</span><a href="#">更多</a></header>
-				<dl>
-					<dt>
-						<h3>云南</h3>
-						<p>这是一个很美的地方</p>
-						<p>这是一个很美的地方</p>
-					</dt>
-					<dd>
-						<img src="../image/reconmand01.png">
-					</dd>
-				</dl>
+				<header class="recomand tips_recomand"><span>旅游景点攻略</span><a href="roadline.php">更多</a></header>
+				<?php
+				  while ($roadlineList = mysqli_fetch_array($roadlineSqlQuery)) {
+					  ?>
+					  <dl>
+						  <dd>
+							  <h3><?php echo $roadlineList[city] ?></h3>
+							  <p><?php echo $roadlineList[roadline] ?></p>
+						  </dd>
+						  <dt>
+							  <img src="<?php echo $roadlineList[img]; ?>">
+						  </dt>
+					  </dl>
+					  <?php
+				  }
+				?>
 				<ul>
 					<li><a href="#">胡大大</a>上传了关于<a href="#">云南</a>的攻略</li>
 					<li><a href="#">胡大大</a>上传了关于<a href="#">云南</a>的攻略</li>

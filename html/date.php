@@ -2,21 +2,7 @@
    include("conn.php");
    error_reporting(0); 
    session_start();
-   // if(isset($_POST["submit"])){
-   	  $username = $_SESSION['username'];
-
-      $title = $_POST['txt-title'];
-      $content = $_POST['content'];
-
-      $textSql = "insert into diary(username,title,content,time) values ('$username','$title','$content',now())";
-      //echo($textSql);
-      $textQuery = mysqli_query($conn,$textSql) or die(mysqli_error());
-      //$userRow = mysql_fetch_array($textQuery);
-      //var_dump($userRow);
-      mysqli_close();
-    // }else{
-    // 	echo("aaa");
-    // }
+   $username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -39,10 +25,10 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
 			<?php
@@ -63,7 +49,7 @@
 		<img src="../image/info01.jpeg"/>
 	</div>
 	<div class="container write-date">
-       	<form action="date.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
+       	<form action="../php/submit.php" name="myform" method="post" onsubmit="return checkPost()" enctype="multipart/form-data">
            <p><label>标题：</label><input type="text" class="txt-title" name="txt-title"/><span class="title-error">标题不得少于5个字</span></p>
            <!--<p><label></label><textarea cols="80" rows="30" name="content"></textarea><span class="title-error">不得为空</span></p>-->
 			<script type="text/plain" id="myEditor" name="content" style="width:1000px;height:240px;">

@@ -2,7 +2,7 @@ input{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 
 
 .self-information{}
 .user-info{line-height: 60px;float: right;color: rgb(36,209,151);width: 200px;overflow: hidden;}
-.user-info img{width: 30px;height: 20px;vertical-align: center;}
+.user-info img{width: 30px;height: 20px;vertical-align: middle;}
 .self{float: left;height: auto;min-height: 300px;overflow: hidden;background: #EEEEFF;}
 .self-basic{width: 35%;padding: 0 10px;}
 .self-dt{width: 62%;float: right;}
@@ -26,8 +26,9 @@ input{border: 1px solid rgb(36,209,151);border-radius: 8px;height: 30px;	width: 
 .my-question{color: #FE4C40;}	
 .my-answer{color: #171916;}
 .dt-nav ul{margin-top: 20px;margin-left: 10px;}
-.dt-nav ul li{display: inline-block;width: 23%;height: 40px;line-height: 40px;
+.dt-nav ul li{display: inline-block;width: 19%;height: 40px;line-height: 40px;
 	font-size: 20px;color: rgb(36,209,151);text-align: center;border-bottom: 2px solid rgb(36,209,151)}
+.dt-nav ul li a{color: rgb(36,209,151)}
 .dt-content{width: 100%;}
 .self-content{width: 100%;margin-top: 10px;padding: 0 10px;}
 .self-content>h3>i{float: right;line-height: 40px;font-size: 12px;}

@@ -1,9 +1,18 @@
+<?php
+include("conn.php");
+session_start();
+error_reporting(0);
+$questionSql = "select * from question order by time desc";
+$questionSqlQuery = mysqli_query($conn,$questionSql)or die(mysqli_error($conn));
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
 	<title>一起去旅行</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.css">
 </head>
 <body>
 	<header class="header community-header">
@@ -12,13 +21,24 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="login"><a href="login.php">登录</a>|<a href="register.php">注册</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>
 	<div class="container community">
@@ -29,10 +49,22 @@
 			<div class="hot-question">
 				<h3>热门问题</h3>
 				<ul>
-					<li><a href="#">哪里好玩</a></li>
-					<li><a href="#">哪里好玩</a></li>
-					<li><a href="#">哪里好玩</a></li>
-					<li><a href="#">哪里好玩</a></li>
+					<?php
+					$shortQuestionSql = "select * from question order by time desc limit 0,4";
+					$shortQuestionSqlQuery = mysqli_query($conn,$shortQuestionSql)or die(mysqli_error($conn));
+					while($questionList = mysqli_fetch_array($shortQuestionSqlQuery)) {
+						?>
+						<li class="hot-question-li"><a href="javascript:void(0)"><?php echo $questionList[question]; ?></a>
+						<div class="reply">
+							<form action="../php/submit.php?id=<?php echo $questionList[id]?>" method="post">
+								<input type="text" name="answer" placeholder="发表一下你的见解吧~" />
+								<input type="submit" value="回答" />
+							</form>
+						</div>
+						</li>
+						<?php
+					}
+					?>
 				</ul>
 			</div>
 			<div class="sorts-question">
@@ -45,90 +77,49 @@
 					</ul>
 				</nav>
 				<div class="answers all-answer">
-					<div class="detail-question">
-						<div class="wenti"><img src="../image/headimg.jpg"><span>杭州哪里好玩</span></div>
-						<div class="clear"></div>
-						<div class="da">
-							<div class="user-info">
-								<a href="#">我是天才</a><a href="#">lv19</a>
-							</div>
-							<div class="da-text">
-								<p>浙江的古镇：乌镇，西塘，南浔古镇，龙门古镇
-                                   。江苏的古镇：吴县的同里，昆山的周庄，镇江的西津渡，吴县的木渎，甪直，太仓的沙溪等，这些都是相对而言比较有名的，其中人比较少的有南浔古镇，西津渡，甪直，沙溪，不过现在的古镇基本上都是一个样子，商业化很重，如果是下雨天的话建议你去周庄玩玩，还是非常有意境的，那个时候整个古镇也比较安静，很舒心。纯手打，记得采纳哦，有问题可以继续追问</p>
-							</div>
-						</div>
-						<div class="tag">
-							   <ul>
-							   	<li>2015-10-10</li>
-							   	<li>有用</li>
-							   	<li>反对</li>
-							   	<li>浏览</li>
-							   </ul>
-						</div>
-					</div>
-					<div class="detail-question">
-						<div class="wenti"><img src="../image/headimg.jpg"><span>杭州哪里好玩</span></div>
-						<div class="clear"></div>
-						<div class="da">
-							<div class="user-info">
-								<a href="#">我是天才</a><a href="#">lv19</a>
-							</div>
-							<div class="da-text">
-								<p>浙江的古镇：乌镇，西塘，南浔古镇，龙门古镇
-                                   。江苏的古镇：吴县的同里，昆山的周庄，镇江的西津渡，吴县的木渎，甪直，太仓的沙溪等，这些都是相对而言比较有名的，其中人比较少的有南浔古镇，西津渡，甪直，沙溪，不过现在的古镇基本上都是一个样子，商业化很重，如果是下雨天的话建议你去周庄玩玩，还是非常有意境的，那个时候整个古镇也比较安静，很舒心。纯手打，记得采纳哦，有问题可以继续追问</p>
-							</div>
-						</div>
-						<div class="tag">
-							   <ul>
-							   	<li>2015-10-10</li>
-							   	<li>有用</li>
-							   	<li>反对</li>
-							   	<li>浏览</li>
-							   </ul>
-						</div>
-					</div>
-					<div class="detail-question">
-						<div class="wenti"><img src="../image/headimg.jpg"><span>杭州哪里好玩</span></div>
-						<div class="clear"></div>
-						<div class="da">
-							<div class="user-info">
-								<a href="#">我是天才</a><a href="#">lv19</a>
-							</div>
-							<div class="da-text">
-								<p>浙江的古镇：乌镇，西塘，南浔古镇，龙门古镇
-                                   。江苏的古镇：吴县的同里，昆山的周庄，镇江的西津渡，吴县的木渎，甪直，太仓的沙溪等，这些都是相对而言比较有名的，其中人比较少的有南浔古镇，西津渡，甪直，沙溪，不过现在的古镇基本上都是一个样子，商业化很重，如果是下雨天的话建议你去周庄玩玩，还是非常有意境的，那个时候整个古镇也比较安静，很舒心。纯手打，记得采纳哦，有问题可以继续追问</p>
-							</div>
-						</div>
-						<div class="tag">
-							   <ul>
-							   	<li>2015-10-10</li>
-							   	<li>有用</li>
-							   	<li>反对</li>
-							   	<li>浏览</li>
-							   </ul>
-						</div>
-					</div>
-					<div class="detail-question">
-						<div class="wenti"><img src="../image/headimg.jpg"><span>杭州哪里好玩</span></div>
-						<div class="clear"></div>
-						<div class="da">
-							<div class="user-info">
-								<a href="#">我是天才</a><a href="#">lv19</a>
-							</div>
-							<div class="da-text">
-								<p>浙江的古镇：乌镇，西塘，南浔古镇，龙门古镇
-                                   。江苏的古镇：吴县的同里，昆山的周庄，镇江的西津渡，吴县的木渎，甪直，太仓的沙溪等，这些都是相对而言比较有名的，其中人比较少的有南浔古镇，西津渡，甪直，沙溪，不过现在的古镇基本上都是一个样子，商业化很重，如果是下雨天的话建议你去周庄玩玩，还是非常有意境的，那个时候整个古镇也比较安静，很舒心。纯手打，记得采纳哦，有问题可以继续追问</p>
-							</div>
-						</div>
-						<div class="tag">
-							   <ul>
-							   	<li>2015-10-10</li>
-							   	<li>有用</li>
-							   	<li>反对</li>
-							   	<li>浏览</li>
-							   </ul>
-						</div>
-					</div>
+					<?php
+					  while($questionList = mysqli_fetch_array($questionSqlQuery)) {
+						  $questionUserSql = "select * from user where username = '$questionList[username]'";
+						  $questionUserSqlQuery = mysqli_query($conn,$questionUserSql)or die(mysqli_error($conn));
+						  $questionUserResult = mysqli_fetch_array($questionUserSqlQuery);
+						  $answerSql = "select * from answer where questionid = '$questionList[id]' order by support limit 0,1";
+						  $answerSqlQuery = mysqli_query($conn,$answerSql)or die(mysqli_error($conn));
+
+						  $answerResult = mysqli_fetch_array($answerSqlQuery);
+						  $answerUserSql = "select * from user where username = '$answerResult[username]'";
+						  $answerUserSqlQuery = mysqli_query($conn,$answerUserSql)or die(mysqli_error($conn));;
+						  $answerUserResult = mysqli_fetch_array($answerSqlQuery);
+						  ?>
+						  <div class="detail-question">
+							  <div class="wenti"><img src="<?php echo $questionUserResult[headimg];?>"><a href="#"><?php echo $questionList[username];?></a>
+								  <span><?php echo $questionList[question]; ?></span></div>
+							  <div class="clear"></div>
+							  <div class="da">
+								  <div class="da-text">
+									  <p><?php echo $answerResult[answer]?></p>
+								  </div>
+							  </div>
+							  <div class="user-info">
+								  <?php
+								    if ($answerResult) {
+										?>
+										<a href="#"><?php echo $answerUserResult[username] ?></a><a href="#">lv19</a>
+										<?php
+									}
+								  ?>
+							  </div>
+							  <div class="tag">
+								  <ul>
+									  <li>2015-10-10</li>
+									  <li>有用</li>
+									  <li>反对</li>
+									  <li>浏览</li>
+								  </ul>
+							  </div>
+						  </div>
+						  <?php
+					  }
+					?>
 				</div>
 				<div class="digg"> 
 		        <span class="disabled">&lt; </span>
@@ -243,6 +234,5 @@
 	<script type="text/javascript" src="../js/tab.js"></script>
 	<script type="text/javascript" src="../js/jQuery.js"></script>
 	<script type="text/javascript" src="../js/style.js"></script>
-	<script type="text/javascript" src="../js/roadLine.js"></script>
 </body>
 </html>

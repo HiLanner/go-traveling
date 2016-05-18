@@ -1,3 +1,20 @@
+<?php
+include("conn.php");
+session_start();
+error_reporting(0);
+$localname = $_SESSION['username'];
+$inforSql = "select * from user where username = '$localname'";
+$inforSqlQuery = mysqli_query($conn,$inforSql);
+$resultArray = mysqli_fetch_array($inforSqlQuery);
+$localimg = $resultArray[headimg];
+$_SESSION['img'] = $localimg;
+$url ='<img src="../upload/'.$resultArray[headimg].'" />';
+$_SESSION['url'] = $url;
+$question = "select * from question where username = '$localname'";
+$questionSqlQuery = mysqli_query($conn,$question) or die(mysqli_error($conn));
+$questionList = mysqli_fetch_array($questionSqlQuery);
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -13,13 +30,24 @@
 			<nav class="top-nav">
 				<ul>
 					<li><a href="index.php">首页</a></li>
-		            <li><a href="destination.php">目的地</a></li>
-		            <li><a href="tips.php">攻略</a></li>
-		            <li><a href="shop.php">商城</a></li>
-		            <li><a href="community.php">社区</a></li>
+					<li><a href="roadline.php">目的地</a></li>
+					<li><a href="tips.php">攻略</a></li>
+					<li><a href="shop.php">商城</a></li>
+					<li><a href="community.php">社区</a></li>
 				</ul>
 			</nav>
-			<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+			<?php
+			if(!isset($_SESSION['username'])){
+				var_dump($_SESSION['username']) ;
+				?>
+				<span class="user-info"><img src="../image/02.jpg">|<a href="login.php">登录</a></span>
+				<?php
+			}else{
+				?>
+				<span class="user-info"><?php echo $_SESSION['url']; ?>|<a href="person.php"><?php echo $_SESSION['username']; ?></a></span>
+				<?php
+			}
+			?>
 		</div>
 	</header>	
     <div class="img-show bgImg">
@@ -27,30 +55,25 @@
 	</div>
 	<div class="container wenda">
        	<ul class="wenda_ul">
-       		<li><b>Q:</b><span>我的问题我的问题我的问题</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
-       		</li>
-       		<li><b>Q:</b><span>我的问题我的问题我的问题</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
-       		</li>
-       		<li><b>Q:</b><span>我的问题我的问题我的问题</span>
-              <ul class="wenda_ul_ul">
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-                 <li><a href="#">大熊</a>：<span>大熊的回答大熊的回答大雄的回答</span></li>
-              </ul>
-       		</li>
+			<?php
+			while($questionList = mysqli_fetch_array($questionSqlQuery)) {
+				?>
+				<li><b>Q:</b><span><?php echo $questionList[question]?></span>
+					<ul class="wenda_ul_ul">
+						<?php
+						   $answerSql = "select * from answer where questionid = $questionList[id]";
+						   $answerSqlQuery = mysqli_query($conn,$answerSql)or die(mysqli_error());
+						   while($answerList = mysqli_fetch_array($answerSqlQuery)) {
+							   ?>
+							   <li><a href="#"><?php echo $answerList[username] ?></a>：<span><?php echo $answerList[answer] ?></span></li>
+							   <?php
+						   }
+						?>
+					</ul>
+				</li>
+				<?php
+			}
+			?>
        	</ul>
 	</div>	
 	<footer>
