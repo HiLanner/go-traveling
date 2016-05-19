@@ -85,7 +85,7 @@ function chooseSort(){
 	var content = $('.self-content');
 	$(content).eq(0).show('slow').siblings('.self-content').hide('slow');
 	$(dtNav).each(function(index){
-		$(this).click(function(){
+		$(this).mouseenter(function(){
             $(content).eq(index).show('slow').siblings('.self-content').hide('slow');
 		});
 	})

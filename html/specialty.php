@@ -58,7 +58,7 @@ include ("conn.php");
 							<img src="<?php echo $sqlSpecialtyResult[img] ?>"/>
 						</div>
 						<div class="items-intro">
-							<span><?php echo $sqlSpecialtyResult[describtion] ?><a href="#">购买</a></span>
+							<span><?php echo $sqlSpecialtyResult[describtion] ?><a href="buyhotel.php?h_id=<?php echo $sqlSpecialtyResult['id']?>">购买</a></span>
 						</div>
 					</li>
 					<?php

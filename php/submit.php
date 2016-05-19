@@ -13,8 +13,6 @@ $place = $province . " " . $city . " " . $county;
 if(strpos($last_url,"upload_tip")){
 $interst = $_POST['interst'];
 $tip = $_POST['my_tip'];
-//echo $place;
-//echo $interst;
 $tipSql = "insert into tip (username,city,interst,img,tipcontent,time) values ('$username','$place','$interst','$destination','$tip',now())";
 $tipQuery = mysqli_query($conn, $tipSql);
 if ($tipQuery) {
@@ -40,7 +38,16 @@ if(strpos($last_url,"askQuestion")){
         header('location:' . $home_url);
     }
 }
-if(strpos($last_url,"date") && !strpos($last_url,"dateDetail")) {
+if (strpos($last_url,"dateDetail")) {
+    $commit = $_POST['commitcontent'];
+    $submitSql = "insert into commit(commitcontent,username,article_id,time) values ('$commit','$username','$thisId',now())";
+    $submitQuery = mysqli_query($conn, $submitSql) or die(mysqli_error());
+    if ($submitQuery) {
+        $home_url = "../html/dateDetail.php";
+        header('location:' . $last_url);
+    }
+}
+if(strpos($last_url,"Date")) {
     $title = $_POST['txt-title'];
     $content = $_POST['content'];
     $textSql = "insert into diary(username,title,content,time) values ('$username','$title','$content',now())";
@@ -48,17 +55,6 @@ if(strpos($last_url,"date") && !strpos($last_url,"dateDetail")) {
     if ($textQuery) {
         $home_url = "../html/person.php";
         header('location:' . $home_url);
-    }
-}
-if (strpos($last_url,"dateDetail")) {
-// 提交评论
-   // echo $id;
-    $commit = $_POST['commitcontent'];
-    $submitSql = "insert into commit(commitcontent,username,article_id,time) values ('$commit','$username','$thisId',now())";
-    $submitQuery = mysqli_query($conn, $submitSql) or die(mysqli_error());
-    if (submitQuery) {
-        $home_url = "../html/dateDetail.php";
-        header('location:' . $last_url);
     }
 }
 if (strpos($last_url,"community")) {
